@@ -10,8 +10,6 @@ const StorePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('started');
-
     dispatch(startFetchStore());
   }, [dispatch]);
 

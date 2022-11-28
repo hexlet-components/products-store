@@ -1,9 +1,17 @@
 import React from 'react';
 
 const Footer = () => (
-        <footer className='py-4'>
-            <div className='container b-share'>
-                <a href='https://ru.hexlet.io' target='_blank' rel="noreferrer">Hexlet</a>
+        <footer className='py-4 text-bg-dark'>
+            <div className='container b-share text-center'>
+                {'created by '}
+                <a
+                    href='https://ru.hexlet.io'
+                    target='_blank'
+                    rel='noreferrer'
+                    className='text-decoration-none'
+                >
+                    Hexlet
+                </a>
             </div>
         </footer>
 );

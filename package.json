@@ -46,7 +46,10 @@
         "single"
       ],
       "consistent-return": "warn",
-      "no-trailing-spaces": "warn"
+      "no-trailing-spaces": "warn",
+      "semi": "warn",
+      "object-curly-newline": "off",
+      "arrow-body-style": "warn"
     }
   },
   "browserslist": {

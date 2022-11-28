@@ -4,6 +4,9 @@ import { StoreT } from '../../types/store';
 const initialState: StoreT = {
   isLoading: false,
   products: [],
+  limit: 0,
+  skip: 0,
+  total: 0,
 };
 
 export const storeSlice = createSlice({
@@ -11,16 +14,31 @@ export const storeSlice = createSlice({
   initialState,
   reducers: {
     startFetchStore: (state) => ({
+      ...state,
       isLoading: true,
       products: state.products,
     }),
-    addProducts: (state, { payload }) => ({
+    updateStoreState: (state, { payload }) => ({
+      ...state,
       isLoading: false,
-      products: [...payload],
+      products: [...payload.products],
+      skip: payload.skip,
+      limit: payload.limit,
+      total: payload.total,
+    }),
+    nextPage: (state) => ({
+      ...state,
+      skip: state.skip + state.limit,
+    }),
+    prevPage: (state) => ({
+      ...state,
+      skip: state.skip - state.limit,
     }),
   },
 });
 
-export const { addProducts, startFetchStore } = storeSlice.actions;
+export const {
+  updateStoreState, startFetchStore, nextPage, prevPage,
+} = storeSlice.actions;
 
 export default storeSlice.reducer;

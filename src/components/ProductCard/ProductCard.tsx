@@ -8,35 +8,41 @@ interface ProductCardProps {
   title: string,
   price: number,
   thumbnail: string;
+  isInCart: boolean,
+  addToCart: () => void;
 }
 
+const descriptionLength = 201;
+const dots = '...';
+
 const ProductCard: FC<ProductCardProps> = ({
-  id, thumbnail, description, title, price,
+  id, thumbnail, description, title, price, isInCart, addToCart,
 }) => {
-  const handleClick = (e: MouseEvent<HTMLButtonElement>, productId: number) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    console.log('added to cart', productId);
+    addToCart();
   };
 
-  const stopPropagation = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.stopPropagation();
-  };
+  const cuttedDescription = description.length >= descriptionLength - 1
+    ? `${description.substring(0, descriptionLength - dots.length)}${dots}` : description;
 
   return (
-    <Link to={`/products/${id}`} onClick={stopPropagation}>
-        <div className='card'>
-                <img className='card-img-top' src={thumbnail} alt={title} width='180' height='180' />
-                <div className='card-body'>
-                    <h6 className='card-title'>{title}</h6>
-                    <p className='card-text'>{description}</p>
-                    <div className='d-flex justify-content-between align-items-center mt-3'>
-                        <span className='card-text'>{price} ₽</span>
-                        <button className='btn btn-primary' onClick={(e) => handleClick(e, id)}>
-                            Add
-                        </button>
-                    </div>
-                </div>
+    <Link to={`/products/${id}`} className='text-decoration-none'>
+        <div className='card text-muted'>
+          <img className='card-img-top' src={thumbnail} alt={title} width='180' height='180' />
+          <div className='card-body' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <h6 className='card-title'>{title}</h6>
+              <p className='card-text lh-1'>{cuttedDescription}</p>
+              <div className='d-flex justify-content-between align-items-center mt-3'>
+                <span className='card-text'>{price} $</span>
+                {
+                  isInCart ? <button className='btn btn-secondary' onClick={(e) => e.preventDefault()}>Added</button>
+                    : <button className='btn btn-primary' onClick={handleClick}>
+                        Add to cart
+                      </button>
+                }
+              </div>
+          </div>
         </div>
     </Link>
   );

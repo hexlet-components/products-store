@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import FallBack from '../../components/Fallback/FallBack';
 import Product from '../../containers/Product/Product';
+import { startFetchProduct } from '../../store/reducers/product';
+import { selectProduct, selectProductIsLoading } from '../../store/selectors';
 import { ProductT } from '../../types/product';
 
 const ProductPage = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const [product, setProduct] = useState<ProductT>();
+
+  const product: ProductT | null = useSelector(selectProduct);
+  const isLoading: boolean = useSelector(selectProductIsLoading);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const response = await fetch(`https://dummyjson.com/products/${id}`);
-      const data = await response.json();
-
-      console.log(data);
-
-      setProduct(data);
-    };
-
-    fetchProduct();
-  }, []);
+    dispatch(startFetchProduct(id));
+  }, [dispatch, id]);
 
   return (
-    product ? <Product productItem={product}/> : <FallBack />
+    isLoading || product === null ? <FallBack /> : <Product productItem={product}/>
   );
 };
 

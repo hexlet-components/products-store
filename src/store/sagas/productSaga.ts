@@ -1,13 +1,12 @@
 import { put, takeEvery, call } from 'redux-saga/effects';
 import fetchProduct from '../../services/fetchProduct';
 import { ProductT } from '../../types/product';
-import { startFetchProduct } from '../reducers/product';
-import { addProducts } from '../reducers/store';
+import { addProduct, startFetchProduct } from '../reducers/product';
 
 function* getProduct({ payload }: {payload: number}) {
   const product: ProductT = yield call(fetchProduct, payload);
 
-  yield put(addProducts(product));
+  yield put(addProduct(product));
 }
 
 export default function* storeSaga() {
