@@ -11,3 +11,5 @@ export type ProductT = {
     thumbnail: string;
     title: string;
 };
+
+export type ProductsT = ProductT[];

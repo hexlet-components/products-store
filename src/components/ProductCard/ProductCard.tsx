@@ -1,5 +1,6 @@
-import React, { FC, MouseEvent } from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './styles.scss';
 
 interface ProductCardProps {
@@ -18,6 +19,7 @@ const dots = '...';
 const ProductCard: FC<ProductCardProps> = ({
   id, thumbnail, description, title, price, isInCart, addToCart,
 }) => {
+  const { t } = useTranslation();
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     addToCart();
@@ -36,9 +38,9 @@ const ProductCard: FC<ProductCardProps> = ({
               <div className='d-flex justify-content-between align-items-center mt-3'>
                 <span className='card-text'>{price} $</span>
                 {
-                  isInCart ? <button className='btn btn-secondary' onClick={(e) => e.preventDefault()}>Added</button>
+                  isInCart ? <button className='btn btn-secondary' onClick={(e) => e.preventDefault()}>{t('added')}</button>
                     : <button className='btn btn-primary' onClick={handleClick}>
-                        Add to cart
+                        {t('add')}
                       </button>
                 }
               </div>

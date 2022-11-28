@@ -1,20 +1,12 @@
 # Products-store-hexlet
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Bags: https://docs.google.com/document/d/153_W3wZDEIgN25aNhFHqijqQnsz3d0LVytEqiRed4Mg/edit?usp=sharing
 
-## Available Scripts
-
-In the project directory, you can run:
-
+## To start:
 ### `npm start`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\

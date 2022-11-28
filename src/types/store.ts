@@ -1,8 +1,8 @@
-import { ProductT } from './product';
+import { ProductsT } from './product';
 
 export type StoreT = {
     isLoading: boolean,
-    products: ProductT[] | [],
+    products: ProductsT,
     limit: number,
     skip: number,
     total: number,

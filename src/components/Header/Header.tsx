@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { selectCart } from '../../store/selectors';
 import Container from '../Base/Container';
 import Dropdown from '../Dropdown/Dropdown';
 
 const links = [
   {
-    text: 'Store',
+    text: 'store',
     path: '/',
   },
   {
-    text: 'Cart',
+    text: 'cart',
     path: '/cart',
     withCounter: true,
   },
@@ -20,7 +21,7 @@ const links = [
 const languages = [
   {
     text: 'English',
-    lang: 'eng',
+    lang: 'en',
   },
   {
     text: 'Russian',
@@ -31,12 +32,12 @@ const languages = [
 const cartLengthStyle = { height: '20px', width: '20px', fontSize: '12px' };
 
 const Header = () => {
+  const { t, i18n } = useTranslation();
+
   const cart = useSelector(selectCart);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const handleClick = (lang: string) => {
-    console.log(lang);
-  };
+  const handleClick = (lang: string) => i18n.changeLanguage(lang);
 
   const toggleDropDown = () => setIsExpanded((p) => !p);
 
@@ -49,7 +50,7 @@ const Header = () => {
                         {
                             links.map((link) => (
                                 <li className='nav-item d-flex' key={link.text}>
-                                    <Link to={link.path} className='nav-link'>{link.text}</Link>
+                                    <Link to={link.path} className='nav-link'>{t(link.text)}</Link>
                                     {
                                       link.withCounter && cart.length
                                         ? <span
@@ -63,7 +64,7 @@ const Header = () => {
                                 </li>
                             ))
                         }
-                        <Dropdown isExpanded={isExpanded} title='Language' handleClick={toggleDropDown}>
+                        <Dropdown isExpanded={isExpanded} title={t('lang')} handleClick={toggleDropDown}>
                             {
                                 languages.map((lang) => (
                                     <li className='dropdown-item' onClick={() => handleClick(lang.lang)} key={lang.lang}>
