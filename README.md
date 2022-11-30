@@ -1,8 +1,5 @@
 # Products-store-hexlet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-## Bags: https://docs.google.com/document/d/153_W3wZDEIgN25aNhFHqijqQnsz3d0LVytEqiRed4Mg/edit?usp=sharing
-
 ## To start:
 ### `npm start`
 
