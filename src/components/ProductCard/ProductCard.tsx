@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getPriceWithDiscount } from '../../utilities';
 import './styles.scss';
 
 interface ProductCardProps {
@@ -9,7 +10,8 @@ interface ProductCardProps {
   title: string,
   price: number,
   thumbnail: string;
-  isInCart: boolean,
+  discountPercentage: number,
+  stock: number;
   addToCart: () => void;
 }
 
@@ -17,9 +19,10 @@ const descriptionLength = 201;
 const dots = '...';
 
 const ProductCard: FC<ProductCardProps> = ({
-  id, thumbnail, description, title, price, isInCart, addToCart,
+  id, thumbnail, description, title, price, discountPercentage, stock, addToCart,
 }) => {
   const { t } = useTranslation();
+
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     addToCart();
@@ -36,12 +39,14 @@ const ProductCard: FC<ProductCardProps> = ({
               <h6 className='card-title'>{title}</h6>
               <p className='card-text lh-1'>{cuttedDescription}</p>
               <div className='d-flex justify-content-between align-items-center mt-3'>
-                <span className='card-text'>{price} $</span>
-                {
-                  isInCart ? <button className='btn btn-secondary' onClick={(e) => e.preventDefault()}>{t('added')}</button>
-                    : <button className='btn btn-primary' onClick={handleClick}>
-                        {t('add')}
-                      </button>
+                <span className='text-decoration-line-through'>{price}$</span>
+                <span className='text-danger'>{getPriceWithDiscount(price, discountPercentage).toFixed(2)}$</span>
+                <span>{stock}</span>
+                {stock
+                  ? <button className='btn btn-primary' onClick={handleClick}>
+                    {t('add')}
+                  </button>
+                  : <></>
                 }
               </div>
           </div>

@@ -52,7 +52,8 @@
       "no-trailing-spaces": "warn",
       "semi": "warn",
       "object-curly-newline": "off",
-      "arrow-body-style": "warn"
+      "arrow-body-style": "warn",
+      "max-len": ["warn", 130]
     }
   },
   "browserslist": {

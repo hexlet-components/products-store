@@ -7,7 +7,6 @@ import ProductPhotos from '../../components/Product/ProductPhotos';
 import { addToCart, removeFromCart } from '../../store/reducers/cart';
 import { selectCart } from '../../store/selectors';
 import { ProductT } from '../../types/product';
-import { isInCart } from '../../utilities';
 
 interface ProductProps {
     productItem: ProductT;
@@ -18,7 +17,7 @@ const Product: FC<ProductProps> = ({ productItem }) => {
   const cartProducts = useSelector(selectCart);
 
   const {
-    id, images, description, discountPercentage, title, thumbnail, rating, category, price,
+    id, images, description, discountPercentage, title, thumbnail, rating, category, price, stock,
   } = productItem;
 
   const addProductToCart = () => dispatch(addToCart(productItem));
@@ -37,8 +36,8 @@ const Product: FC<ProductProps> = ({ productItem }) => {
                         price={price}
                         discountPercentage={discountPercentage}
                         addToCart={addProductToCart}
+                        stock={stock}
                         removeFromCart={removeProductFromCart}
-                        isInCart={isInCart(id, cartProducts)}
                     />
                 </div>
             </Container>

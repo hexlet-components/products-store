@@ -1,23 +1,24 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 interface DropdownProps {
-    isExpanded: boolean;
     title: string;
     children: React.ReactNode | React.ReactNode[];
-    handleClick: () => void;
 }
 
-const Dropdown: FC<DropdownProps> = ({
-  isExpanded, title, children, handleClick,
-}) => (
-        <li className={`nav-item dropdown ${isExpanded ? 'show' : ''}`} onClick={handleClick}>
-            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded={isExpanded}>
+const Dropdown: FC<DropdownProps> = ({ title, children }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleDropDown = () => setIsExpanded((p) => !p);
+  return (
+        <div className={`nav-item dropdown ${isExpanded ? 'show' : ''}`} onClick={toggleDropDown}>
+            <span className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded={isExpanded}>
                 {title}
-            </a>
+            </span>
             <ul className={`dropdown-menu ${isExpanded ? 'show' : ''}`}>
                 {children}
             </ul>
-        </li>
-);
+        </div>
+  );
+};
 
 export default Dropdown;

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
 interface ProductPhotosProps {
     images: string[];
@@ -19,7 +19,7 @@ const ProductPhotos: FC<ProductPhotosProps> = ({ images, thumbnail }) => (
                         <div key={image} className='mr-1'>
                             <img src={image} alt={`card ${ind}`} style={imageStyle} className={imageClass} />
                         </div>
-                    ) : <></>))
+                    ) : <Fragment key={ind}></Fragment>))
                 }
             </div>
         </div>
