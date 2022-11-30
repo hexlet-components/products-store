@@ -42,14 +42,17 @@ const CartList: FC<CartListProps> = ({ products, cart }) => {
                                 <span>{p.stock} {t('quantity')}</span>
                             </div>
                             <span>{cart[p.id].quantity}</span>
-                            <div className='d-flex align-items-center' style={{ width: '17%' }}>
+                            <div className='d-flex align-items-center justify-content-between' style={{ minWidth: '25%' }}>
+                                <span className='text-decoration-line-through me-3'>{p.price}$</span>
                                 <button
                                     className='btn btn-danger me-1'
                                     onClick={(e) => removeProduct(e, p.id)}
                                 >
                                     {t('delete from cart')}
                                 </button>
-                                <span className='ps-3'>{getPrice(p.price, p.discountPercentage, cart[p.id].quantity)}$</span>
+                                <span className='ps-3'>
+                                    {getPrice(p.price, p.discountPercentage, cart[p.id].quantity)}$
+                                </span>
                             </div>
                         </li>
                     </Link>
