@@ -22,5 +22,8 @@ export default {
     'Nothing found': 'Nothing found!',
     fromTo: 'From - To:',
     quantity: 'qty.',
+    buy: 'Checkout',
+    orderPlaced: 'Order placed successfully',
+    close: 'Close',
   },
 };

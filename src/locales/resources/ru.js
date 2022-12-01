@@ -22,5 +22,8 @@ export default {
     'Nothing found': 'Ничего не найдено!',
     fromTo: 'От - До:',
     quantity: 'шт.',
+    buy: 'Оформить заказ',
+    orderPlaced: 'Заказ успешно формлен',
+    close: 'Закрыть',
   },
 };

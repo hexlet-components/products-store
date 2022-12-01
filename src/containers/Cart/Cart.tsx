@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,8 @@ import CartList from '../../components/CartList/CartList';
 import { selectCart, selectCartProducts } from '../../store/selectors';
 import { CartT } from '../../types/cart';
 import { getPriceWithDiscount } from '../../utilities';
+import Modal from '../../components/Modal/Modal';
+import CartListShort from '../../components/CartList/CartListShort';
 
 const Cart = () => {
   const { t } = useTranslation();
@@ -17,13 +19,38 @@ const Cart = () => {
   const products: ProductsT = useSelector(selectCartProducts);
   const cart: CartT = useSelector(selectCart);
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleClearCart = () => dispatch(clearCart());
 
   const getTotalPrice = () => products
     .reduce((acc: number, p: ProductT) => acc + (getPriceWithDiscount(p.price, p.discountPercentage) * cart[p.id].quantity), 0);
 
+  const handleClick = () => setIsOpen((prev) => !prev);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const fake = async () => {
+      try {
+        const response = await fetch('https://dummyjson.com/http/500/failed');
+        const data = await response.json();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fake();
+  }, [isOpen]);
+
   return (
     <PageContent>
+        <Modal isOpen={isOpen} title={t('orderPlaced')} closeModal={handleClick}>
+            <>
+                <CartListShort products={products} cart={cart} />
+                <span className='h5 ps-2'>{t('total')}: {getTotalPrice().toFixed(2)} $</span>
+            </>
+        </Modal>
         <section className='pb-4 mb-5 pt-5'>
             <Container>
                 <div className='d-flex p-2 align-items-center justify-content-around'>
@@ -37,7 +64,8 @@ const Cart = () => {
         </section>
         <section className='pb-4 mb-5 pt-5'>
             <Container>
-                <div className='row'>
+                <div className='row justify-content-center'>
+                    <button className='btn btn-success' style={{ width: '20%' }} onClick={handleClick}>{t('buy')}</button>
                     <CartList products={products} cart={cart} />
                 </div>
             </Container>
