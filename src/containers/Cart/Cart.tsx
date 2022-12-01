@@ -65,7 +65,11 @@ const Cart = () => {
         <section className='pb-4 mb-5 pt-5'>
             <Container>
                 <div className='row justify-content-center'>
-                    <button className='btn btn-success' style={{ width: '20%' }} onClick={handleClick}>{t('buy')}</button>
+                    {
+                        Object.keys(cart).length
+                          ? <button className='btn btn-success' style={{ width: '20%' }} onClick={handleClick}>{t('buy')}</button>
+                          : <></>
+                    }
                     <CartList products={products} cart={cart} />
                 </div>
             </Container>
