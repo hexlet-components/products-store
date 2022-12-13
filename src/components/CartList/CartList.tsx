@@ -31,7 +31,7 @@ const CartList: FC<CartListProps> = ({ products, cart }) => {
         <ul>
             {
                 products.map((p) => (
-                    <Link to={`/products/${p.id}`} className='text-decoration-none'>
+                    <Link to={`/products/${p.id}`} className='text-decoration-none' key={ p.id }>
                         <li
                             key={p.id}
                             className='mt-2 p-2 ps-4 pe-4 d-flex justify-content-between align-items-center'

@@ -42,7 +42,9 @@ const Header = () => {
   return (
         <header className='navbar navbar-expand-lg navbar-light bg-light shadow'>
             <Container styles='px-4 px-lg-5'>
-                <h1 className='navbar-brand'>Hexlet Store</h1>
+                <h1 className='navbar-brand'>
+                  <Link to='/' className='nav-link'>Hexlet Store</Link>
+                </h1>
                 <nav>
                     <ul className='navbar navbar-nav'>
                         {
