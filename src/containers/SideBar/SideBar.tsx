@@ -33,7 +33,6 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
   useEffect(() => {
     const minValue = Number(minPrice) || 0;
     const maxValue = maxPrice || maxPriceRange;
-
     changeFilteredProducts(
       filterProducts(products, categoryFilter, inputFilter, brandsFilter, minValue, maxValue, isInStock),
     );
@@ -58,7 +57,8 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
     <div style={{ maxWidth: '25%' }} className='col border-end pt-5 me-4'>
         <Search input={inputFilter} setInput={setSearchInput} />
         <div>
-          <Dropdown title={t('category')}>
+        <Dropdown title={t('category')}>
+            <li className="dropdown-item" key="all" onClick={() => setCategoryFilter(' ')}>&nbsp;</li>
             {
               categories.map((category: string) => (
                 <li className='dropdown-item' key={category} onClick={() => setCategoryFilter(category)}>{category}</li>
