@@ -1,6 +1,8 @@
 import React, { useState, useEffect, ChangeEvent, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
+
 import Dropdown from '../../components/Dropdown/Dropdown';
 import Search from '../../components/Filters/Search';
 import { selectBrands, selectCategories, selectMaxPrice } from '../../store/selectors';
@@ -23,7 +25,9 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
   const brands = useSelector(selectBrands);
   const maxPriceRange = useSelector(selectMaxPrice);
 
-  const [categoryFilter, setCategoryFilter] = useState('');
+  const [searchParams] = useSearchParams();
+
+  const [categoryFilter, setCategoryFilter] = useState(searchParams.get('category') ?? '');
   const [inputFilter, setSearchInput] = useState('');
   const [brandsFilter, setCheckedBrand] = useState(new Set(''));
   const [isInStock, setIsInStock] = useState(true);

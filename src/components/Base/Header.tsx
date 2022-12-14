@@ -10,6 +10,7 @@ const links = [
   {
     text: 'store',
     path: '/',
+    reloadDocument: true,
   },
   {
     text: 'cart',
@@ -48,7 +49,7 @@ const Header = () => {
                         {
                           links.map((link) => (
                             <li className='nav-item d-flex' key={link.text}>
-                              <Link to={link.path} className='nav-link'>{t(link.text)}</Link>
+                              <Link reloadDocument={link.reloadDocument} to={link.path} className='nav-link'>{t(link.text)}</Link>
                               {
                                 link.withCounter && Object.keys(cart).length
                                   ? <span
