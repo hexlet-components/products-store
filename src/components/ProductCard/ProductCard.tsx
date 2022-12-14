@@ -39,7 +39,7 @@ const ProductCard: FC<ProductCardProps> = ({
           </Link>
           <div className='card-body' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <h6 className='card-title'>{title}</h6>
-              <p className='card-text lh-1'>{cuttedDescription}</p>
+              <div className='card-text lh-1' style={{ maxHeight: '100px' }}>{cuttedDescription}</div>
               <div className='d-flex justify-content-between align-items-center mt-3'>
                 <span className='text-decoration-line-through'>{price}$</span>
                 <span className='text-danger'>{getPriceWithDiscount(price, discountPercentage).toFixed(2)}$</span>

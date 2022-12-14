@@ -25,5 +25,9 @@ export default {
     buy: 'Оформить заказ',
     orderPlaced: 'Заказ успешно формлен',
     close: 'Закрыть',
+    notFound: {
+      header: 'Ошибка загрузки данных',
+      message: 'Что-то пошло не так',
+    },
   },
 };

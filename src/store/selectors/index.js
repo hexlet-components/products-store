@@ -1,5 +1,5 @@
 export const selectStore = (state) => state.store.products;
-export const selectStoreIsLoading = (state) => state.store.isLoading;
+export const selectStoreIsLoading = (state) => state.store.loadingProcess;
 export const selectSkip = (state) => state.store.skip;
 export const selectTotal = (state) => state.store.total;
 export const selectLimit = (state) => state.store.limit;
