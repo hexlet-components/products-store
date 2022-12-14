@@ -25,5 +25,9 @@ export default {
     buy: 'Checkout',
     orderPlaced: 'Order placed successfully',
     close: 'Close',
+    notFound: {
+      header: 'Error',
+      message: 'Something was wrong',
+    },
   },
 };

@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { StoreT } from '../../types/store';
+import { StoreT, FetchingProcess } from '../../types/store';
 
 const initialState: StoreT = {
-  isLoading: false,
+  loadingProcess: FetchingProcess.initial,
   products: [],
   limit: 0,
   skip: 0,
   total: 0,
   currentPage: 1,
+  error: null,
 };
 
 export const storeSlice = createSlice({
@@ -16,12 +17,12 @@ export const storeSlice = createSlice({
   reducers: {
     startFetchStore: (state) => ({
       ...state,
-      isLoading: true,
+      loadingProcess: FetchingProcess.loading,
       products: state.products,
     }),
     updateStoreState: (state, { payload }) => ({
       ...state,
-      isLoading: false,
+      loadingProcess: FetchingProcess.loaded,
       products: [...payload.products],
       skip: payload.skip,
       limit: payload.limit,
@@ -45,11 +46,15 @@ export const storeSlice = createSlice({
         currentPage: nextPage,
       };
     },
+    fetchError: (state, { payload }) => ({
+      ...state,
+      loadingProcess: FetchingProcess.failed,
+    }),
   },
 });
 
 export const {
-  updateStoreState, startFetchStore, nextPage, prevPage,
+  updateStoreState, startFetchStore, nextPage, prevPage, fetchError,
 } = storeSlice.actions;
 
 export default storeSlice.reducer;
