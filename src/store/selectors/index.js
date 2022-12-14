@@ -3,6 +3,7 @@ export const selectStoreIsLoading = (state) => state.store.isLoading;
 export const selectSkip = (state) => state.store.skip;
 export const selectTotal = (state) => state.store.total;
 export const selectLimit = (state) => state.store.limit;
+export const selectCurrentPage = (state) => state.store.currentPage;
 
 export const selectProduct = (state) => state.product.product;
 export const selectProductIsLoading = (state) => state.product.isLoading;

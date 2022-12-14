@@ -6,7 +6,7 @@ import { nextPage, prevPage } from '../../store/reducers/store';
 import PageContent from '../../components/Base/PageContent';
 import Pagination from '../../components/Pagination/Pagination';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { selectLimit, selectSkip, selectStore, selectTotal } from '../../store/selectors';
+import { selectCurrentPage, selectLimit, selectSkip, selectStore, selectTotal } from '../../store/selectors';
 import { ProductsT, ProductT } from '../../types/product';
 import { addToCart } from '../../store/reducers/cart';
 import SideBar from '../SideBar/SideBar';
@@ -19,11 +19,24 @@ const Store = () => {
   const skip = useSelector(selectSkip);
   const limit = useSelector(selectLimit);
   const total = useSelector(selectTotal);
+  const currentPage = useSelector(selectCurrentPage);
 
   const [filteredProducts, setFilteredProducts] = useState(products);
 
-  const handleNext = () => (limit + skip < total ? dispatch(nextPage()) : null);
-  const handlePrev = () => (skip - limit >= 0 ? dispatch(prevPage()) : null);
+  const pagesCount = filteredProducts.length < 30 ? 1 : Math.ceil(total / 30);
+
+  const handleNext = () => {
+    if (currentPage < pagesCount) {
+      dispatch(nextPage());
+      // setFilteredProducts(products);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      dispatch(prevPage());
+    }
+  };
 
   const addProductToCart = (product: ProductT) => dispatch(addToCart(product));
 
@@ -34,7 +47,7 @@ const Store = () => {
       <Container styles='row'>
         <SideBar products={products} changeFilteredProducts={changeFilteredProducts} />
         <div className='col pt-5'>
-          <Pagination handleNext={handleNext} handlePrev={handlePrev} />
+          <Pagination handleNext={handleNext} handlePrev={handlePrev} currentPage={currentPage} pagesCount={pagesCount} />
           <div className='row g-4 row-cols-xl-3 row-cols-lg-2 row-cols-1 row-cols-md-1 mb-4'>
             {
               filteredProducts.length ? filteredProducts.map((p: ProductT) => (
@@ -52,7 +65,7 @@ const Store = () => {
               )) : <span>{t('Nothing found')}</span>
             }
           </div>
-          <Pagination handleNext={handleNext} handlePrev={handlePrev} styles='mb-5' />
+          <Pagination handleNext={handleNext} handlePrev={handlePrev} currentPage={currentPage} pagesCount={pagesCount} styles='mb-5' />
         </div>
       </Container>
     </PageContent>

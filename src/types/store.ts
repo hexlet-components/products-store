@@ -6,4 +6,5 @@ export type StoreT = {
     limit: number,
     skip: number,
     total: number,
+    currentPage: number,
 };
