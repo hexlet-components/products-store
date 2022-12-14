@@ -50,7 +50,8 @@ const Store = () => {
           <Pagination handleNext={handleNext} handlePrev={handlePrev} currentPage={currentPage} pagesCount={pagesCount} />
           <div className='row g-4 row-cols-xl-3 row-cols-lg-2 row-cols-1 row-cols-md-1 mb-4'>
             {
-              filteredProducts.length ? filteredProducts.map((p: ProductT) => (
+              filteredProducts.length
+                ? filteredProducts.map((p: ProductT) => (
                 <ProductCard
                   key={p.id}
                   id={p.id}
@@ -62,7 +63,21 @@ const Store = () => {
                   stock={p.stock}
                   addToCart={() => addProductToCart(p)}
                 />
-              )) : <span>{t('Nothing found')}</span>
+                ))
+                : products.map((p: ProductT) => (
+                  <ProductCard
+                  key={p.id}
+                  id={p.id}
+                  thumbnail={p.thumbnail}
+                  price={p.price}
+                  title={p.title}
+                  description={p.description}
+                  discountPercentage={p.discountPercentage}
+                  stock={p.stock}
+                  addToCart={() => addProductToCart(p)}
+                />
+                ))
+                
             }
           </div>
           <Pagination handleNext={handleNext} handlePrev={handlePrev} currentPage={currentPage} pagesCount={pagesCount} styles='mb-5' />
