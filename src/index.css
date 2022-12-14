@@ -24,3 +24,12 @@ code {
 #root {
  height: 100%;
 }
+
+.page-link:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.page-link:focus:not(:hover) {
+  background-color: var(--bs-pagination-bg);
+}

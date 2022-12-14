@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 interface PaginationProps {
@@ -17,10 +16,10 @@ const Pagination: FC<PaginationProps> = ({ handleNext, handlePrev, styles, curre
     <nav className={styles}>
         <ul className='pagination justify-content-center'>
             {currentPage > 1 && <li className='page-item' onClick={handlePrev}>
-                <Link className='page-link' to='#'>{t('prev')}</Link>
+                <button className='page-link'>{t('prev')}</button>
             </li>}
             {currentPage < pagesCount && <li className='page-item' onClick={handleNext}>
-                <Link className='page-link' to='#'>{t('next')}</Link>
+                <button className='page-link'>{t('next')}</button>
             </li>}
         </ul>
     </nav>
