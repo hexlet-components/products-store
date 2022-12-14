@@ -28,7 +28,7 @@ const CartList: FC<CartListProps> = ({ products, cart }) => {
     .toFixed(2);
 
   return (
-        <div>
+        <ul>
             {
                 products.map((p) => (
                     <Link to={`/products/${p.id}`} className='text-decoration-none' key={ p.id }>
@@ -56,7 +56,7 @@ const CartList: FC<CartListProps> = ({ products, cart }) => {
                     </Link>
                 ))
             }
-        </div>
+        </ul>
   );
 };
 
