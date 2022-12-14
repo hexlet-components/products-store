@@ -12,6 +12,7 @@ const Footer = () => (
                 >
                     Hexlet
                 </a>
+                <p>version 1</p>
             </div>
         </footer>
 );
