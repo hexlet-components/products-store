@@ -32,7 +32,7 @@ const ProductCard: FC<ProductCardProps> = ({
     ? `${description.substring(0, descriptionLength - dots.length)}${dots}` : description;
 
   return (
-    <Link to={`/products/${id}`} className='text-decoration-none'>
+    <div to={`/products/${id}`} className='text-decoration-none'>
         <div className='card text-muted'>
           <img className='card-img-top' src={thumbnail} alt={title} width='180' height='180' />
           <div className='card-body' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -51,7 +51,7 @@ const ProductCard: FC<ProductCardProps> = ({
               </div>
           </div>
         </div>
-    </Link>
+    </div>
   );
 };
 
