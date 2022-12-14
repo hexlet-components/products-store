@@ -52,7 +52,7 @@ const CartList: FC<CartListProps> = ({ products, cart }) => {
                             <span className='ps-3'>
                                 {getPrice(p.price, p.discountPercentage, cart[p.id].quantity)}$
                             </span>
-                        </div>
+                        </li>
                     </Link>
                 ))
             }
