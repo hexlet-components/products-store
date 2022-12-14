@@ -20,7 +20,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
 
   return (
     <div className='col-md-6'>
-        <a href="#" className='mb-4 d-block'>#{category}</a>
+        <a href={`/?category=${category}`} className='mb-4 d-block'>#{category}</a>
         <h1 className='mb-1'>{title}</h1>
         <div className='mb-4'>{t('rating')}: {rating} &#9733;</div>
         <i className='bi bi-star-fill'></i>

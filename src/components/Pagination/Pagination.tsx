@@ -6,20 +6,22 @@ interface PaginationProps {
     handleNext: () => void;
     handlePrev: () => void;
     styles?: string;
+    currentPage: number,
+    pagesCount: number,
 }
 
-const Pagination: FC<PaginationProps> = ({ handleNext, handlePrev, styles }) => {
+const Pagination: FC<PaginationProps> = ({ handleNext, handlePrev, styles, currentPage, pagesCount }) => {
   const { t } = useTranslation();
 
   return (
     <nav className={styles}>
         <ul className='pagination justify-content-center'>
-            <li className='page-item' onClick={handlePrev}>
+            {currentPage > 1 && <li className='page-item' onClick={handlePrev}>
                 <Link className='page-link' to='#'>{t('prev')}</Link>
-            </li>
-            <li className='page-item' onClick={handleNext}>
+            </li>}
+            {currentPage < pagesCount && <li className='page-item' onClick={handleNext}>
                 <Link className='page-link' to='#'>{t('next')}</Link>
-            </li>
+            </li>}
         </ul>
     </nav>
   );

@@ -34,26 +34,24 @@ const CartList: FC<CartListProps> = ({ products, cart }) => {
                     <Link to={`/products/${p.id}`} className='text-decoration-none' key={ p.id }>
                         <li
                             key={p.id}
-                            className='mt-2 p-2 ps-4 pe-4 d-flex justify-content-between align-items-center'
+                            className='mt-2 p-2 ps-4 col-12 pe-4 d-flex justify-content-between align-items-center'
                             style={listStyles}
                         >
-                            <div className='d-flex  align-items-center'>
+                            <div className='col-4 d-flex align-items-center'>
                                 <h6 className='me-3' style={{ marginBottom: '0' }}>{p.title}</h6>
-                                <span>{p.stock} {t('quantity')}</span>
                             </div>
-                            <span>{cart[p.id].quantity}</span>
-                            <div className='d-flex align-items-center justify-content-between' style={{ minWidth: '25%' }}>
-                                <span className='text-decoration-line-through me-3'>{p.price}$</span>
-                                <button
-                                    className='btn btn-danger me-1'
-                                    onClick={(e) => removeProduct(e, p.id)}
-                                >
-                                    {t('delete from cart')}
-                                </button>
-                                <span className='ps-3'>
-                                    {getPrice(p.price, p.discountPercentage, cart[p.id].quantity)}$
-                                </span>
-                            </div>
+                            <div className='col-1'>{p.stock} {t('quantity')}</div>
+                            <div className='col-1'>{cart[p.id].quantity}</div>
+                            <div className='col-1 text-decoration-line-through me-3'>{p.price}$</div>
+                            <button
+                                className='btn btn-danger me-1'
+                                onClick={(e) => removeProduct(e, p.id)}
+                            >
+                                {t('delete from cart')}
+                            </button>
+                            <span className='ps-3'>
+                                {getPrice(p.price, p.discountPercentage, cart[p.id].quantity)}$
+                            </span>
                         </li>
                     </Link>
                 ))

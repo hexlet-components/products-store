@@ -6,7 +6,7 @@ interface CheckBoxesProps {
 }
 
 const CheckBoxes: FC<CheckBoxesProps> = ({ title, children }) => (
-    <div className='mt-3 pb-3'>
+    <div className='pb-3'>
         <span className='h6'>{title}</span>
         { children }
     </div>

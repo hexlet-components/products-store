@@ -7,6 +7,7 @@ const initialState: StoreT = {
   limit: 0,
   skip: 0,
   total: 0,
+  currentPage: 1,
 };
 
 export const storeSlice = createSlice({
@@ -26,14 +27,24 @@ export const storeSlice = createSlice({
       limit: payload.limit,
       total: payload.total,
     }),
-    nextPage: (state) => ({
-      ...state,
-      skip: state.skip + state.limit,
-    }),
-    prevPage: (state) => ({
-      ...state,
-      skip: state.skip - state.limit,
-    }),
+    nextPage: (state) => {
+      const nextPage = state.currentPage + 1;
+      const newSkip = (nextPage - 1) * 30;
+      return {
+        ...state,
+        skip: newSkip,
+        currentPage: nextPage,
+      };
+    },
+    prevPage: (state) => {
+      const nextPage = state.currentPage - 1;
+      const newSkip = (nextPage - 1) * 30;
+      return {
+        ...state,
+        skip: newSkip,
+        currentPage: nextPage,
+      };
+    },
   },
 });
 
