@@ -5,22 +5,25 @@ interface ProductPhotosProps {
     thumbnail: string;
 }
 
-const imageStyle = { width: '100%' };
-const imageClass = 'rounded-3 img-fluid';
+const imageClass = 'rounded-3 main-img';
 
 const ProductPhotos: FC<ProductPhotosProps> = ({ images, thumbnail }) => {
   const [selectedPhoto, setSelectedPhoto] = useState(thumbnail);
 
   return (
-    <div className='col-md-6' style={{ maxWidth: '40vw' }}>
-        <div className='mb-3'>
-            <img src={selectedPhoto} alt='card 1' className={imageClass} style={imageStyle} />
+    <div className='d-flex flex-column align-items-center product-info-wrapper gap-3'>
+        <div className='mb-3 main-img-wrapper'>
+            <img src={selectedPhoto} alt='card 1' className={imageClass} />
         </div>
-        <div className='d-flex' >
+        <div className='d-flex gap-2 align-items-center' >
             {
                 images.map((image, ind) => (ind < images.length - 1 ? (
-                    <div key={image} className='mr-1' role='button' onClick={() => setSelectedPhoto(image)}>
-                        <img src={image} alt={`card ${ind}`} style={imageStyle} className={imageClass} />
+                    <div key={image} className='img-preview-wrapper' role='button' onClick={() => setSelectedPhoto(image)}>
+                        <img
+                            src={image}
+                            alt={`card ${ind}`}
+                            className='main-img rounded-3'
+                        />
                     </div>
                 ) : <Fragment key={ind}></Fragment>))
             }

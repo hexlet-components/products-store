@@ -19,7 +19,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className='col-md-6'>
+    <div className='product-info-wrapper'>
         <a href={`/?category=${category}`} className='mb-4 d-block'>#{category}</a>
         <h1 className='mb-1'>{title}</h1>
         <div className='mb-4'>{t('rating')}: {rating} &#9733;</div>

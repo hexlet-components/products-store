@@ -24,3 +24,29 @@ code {
 #root {
  height: 100%;
 }
+
+.product-info-wrapper {
+  width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .product-info-wrapper {
+    width: 100%;
+  }
+}
+
+.main-img-wrapper {
+  max-width: 400px;
+  height: 200px;
+}
+
+.main-img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.img-preview-wrapper {
+  max-width: 120px;
+  height: 65px;
+}
