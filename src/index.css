@@ -50,3 +50,7 @@ code {
   max-width: 120px;
   height: 65px;
 }
+
+.object-cover {
+  object-fit: cover;
+}

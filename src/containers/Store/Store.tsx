@@ -43,12 +43,12 @@ const Store = () => {
   const changeFilteredProducts = (filtered: ProductsT) => setFilteredProducts(filtered);
 
   return (
-    <PageContent>
-      <Container styles='row'>
+    <>
+      <div className='container d-flex gap-5 py-5 flex-column flex-md-row'>
         <SideBar products={products} changeFilteredProducts={changeFilteredProducts} />
-        <div className='col pt-5'>
+        <div className='order-1 order-md-2'>
           <Pagination handleNext={handleNext} handlePrev={handlePrev} currentPage={currentPage} pagesCount={pagesCount} />
-          <div className='row g-4 row-cols-xl-3 row-cols-lg-2 row-cols-1 row-cols-md-1 mb-4'>
+          <div className='row'>
             {
               filteredProducts.length
                 ? filteredProducts.map((p: ProductT) => (
@@ -77,13 +77,17 @@ const Store = () => {
                   addToCart={() => addProductToCart(p)}
                 />
                 ))
-                
             }
           </div>
-          <Pagination handleNext={handleNext} handlePrev={handlePrev} currentPage={currentPage} pagesCount={pagesCount} styles='mb-5' />
+          <Pagination
+            handleNext={handleNext}
+            handlePrev={handlePrev}
+            currentPage={currentPage}
+            pagesCount={pagesCount}
+            styles='mb-5' />
         </div>
-      </Container>
-    </PageContent>
+      </div>
+    </>
   );
 };
 

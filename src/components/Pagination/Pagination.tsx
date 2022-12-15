@@ -10,11 +10,11 @@ interface PaginationProps {
     pagesCount: number,
 }
 
-const Pagination: FC<PaginationProps> = ({ handleNext, handlePrev, styles, currentPage, pagesCount }) => {
+const Pagination: FC<PaginationProps> = ({ handleNext, handlePrev, currentPage, pagesCount }) => {
   const { t } = useTranslation();
 
   return (
-    <nav className={styles}>
+    <nav className='mb-5'>
         <ul className='pagination justify-content-center'>
             {currentPage > 1 && <li className='page-item' onClick={handlePrev}>
                 <Link className='page-link' to='#'>{t('prev')}</Link>

@@ -12,7 +12,7 @@ const Search: FC<SearchProps> = ({ input, setInput }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
 
   return (
-    <input className='mb-3' type='text' value={input} placeholder={t('search') || ''} onChange={handleChange}/>
+    <input className='mb-3 w-100' type='text' value={input} placeholder={t('search') || ''} onChange={handleChange}/>
   );
 };
 
