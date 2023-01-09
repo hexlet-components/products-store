@@ -58,17 +58,17 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
   const handleIsInStock = () => setIsInStock((p) => !p);
 
   return (
-    <div style={{ maxWidth: '25%' }} className='col border-end pt-5 me-4'>
+    <div className='order-2 order-md-1' style={{ minWidth: '260px' }}>
         <Search input={inputFilter} setInput={setSearchInput} />
-        <div>
-        <Dropdown title={t('category')}>
-            <li className="dropdown-item" key="all" onClick={() => setCategoryFilter(' ')}>&nbsp;</li>
-            {
-              categories.map((category: string) => (
-                <li className='dropdown-item' key={category} onClick={() => setCategoryFilter(category)}>{category}</li>
-              ))
-            }
-          </Dropdown>
+        <div style={{ minHeight: '3rem' }} className="mb-3">
+          <Dropdown title={t('category')}>
+              <li className="dropdown-item" key="all" onClick={() => setCategoryFilter(' ')}>&nbsp;</li>
+              {
+                categories.map((category: string) => (
+                  <li className='dropdown-item' key={category} onClick={() => setCategoryFilter(category)}>{category}</li>
+                ))
+              }
+            </Dropdown>
           <span>{categoryFilter}</span>
         </div>
         <CheckBoxes title={t('brand')} >

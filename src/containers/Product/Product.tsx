@@ -24,10 +24,10 @@ const Product: FC<ProductProps> = ({ productItem }) => {
   const removeProductFromCart = () => dispatch(removeFromCart(id));
 
   return (
-    <PageContent>
+    <>
         <section className='mb-5 pt-5'>
             <Container>
-                <div className='row'>
+                <div className='d-flex gap-5 flex-column flex-md-row'>
                     <ProductPhotos images={images} thumbnail={thumbnail} />
                     <ProductInfo
                         category={category}
@@ -50,7 +50,7 @@ const Product: FC<ProductProps> = ({ productItem }) => {
                 </div>
             </Container>
         </section>
-    </PageContent>
+    </>
 
   );
 };

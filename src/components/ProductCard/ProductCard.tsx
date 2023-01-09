@@ -32,10 +32,10 @@ const ProductCard: FC<ProductCardProps> = ({
     ? `${description.substring(0, descriptionLength - dots.length)}${dots}` : description;
 
   return (
-    <div>
+    <div className='col-12 col-lg-6 col-xl-4 mb-4'>
         <div className='card text-muted'>
           <Link to={`/products/${id}`} className='text-decoration-none'>
-            <img className='card-img-top' src={thumbnail} alt={title} width='180' height='180' />
+            <img className='card-img-top object-cover' src={thumbnail} alt={title} width='180' height='180' />
           </Link>
           <div className='card-body' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <h6 className='card-title'>{title}</h6>
