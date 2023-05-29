@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { selectCart, selectCartProductsCount } from '../../store/selectors';
 import Container from './Container';
 import Dropdown from '../Dropdown/Dropdown';
+import ruFlag from '../../assets/flag-ru.svg';
 
 const links = [
   {
@@ -22,10 +23,12 @@ const languages = [
   {
     text: 'English',
     lang: 'en',
+    flag: 'english',
   },
   {
     text: 'Russian',
     lang: 'ru',
+    flag: ruFlag,
   },
 ];
 
@@ -66,7 +69,8 @@ const Header = () => {
                           {
                             languages.map((lang) => (
                               <li className='dropdown-item' onClick={() => handleClick(lang.lang)} key={lang.lang}>
-                                {lang.text}
+                                <img width="22" className='my-auto me-1 pb-1' src={lang.flag} />
+                                <span className='my-auto text-body-secondary'>{lang.text}</span>
                               </li>
                             ))
                           }
