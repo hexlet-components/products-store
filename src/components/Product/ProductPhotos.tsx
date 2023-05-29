@@ -13,7 +13,6 @@ const ProductPhotos: FC<ProductPhotosProps> = ({ images, thumbnail }) => (
             <div className='mb-3'>
                 <img src={thumbnail} alt='card 1' className={imageClass} style={imageStyle} />
             </div>
-            <img src="wrong_image.jpg" />
             <div className='d-flex' >
                 {
                     images.map((image, ind) => (ind < images.length - 1 ? (
