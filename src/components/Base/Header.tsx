@@ -40,7 +40,7 @@ const Header = () => {
   const cart = useSelector(selectCart);
   const productsInCartCount = useSelector(selectCartProductsCount);
 
-  const handleClick = (lang: string) => i18n.changeLanguage(lang);
+  const handleClick = (lang: string) => setTimeout(() => i18n.changeLanguage(lang), 1000);
 
   return (
         <header className='navbar navbar-expand-lg navbar-light bg-light shadow'>
