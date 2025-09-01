@@ -6,6 +6,7 @@ export default defineConfig({
   server: {
     allowedHosts: true,
     host: true,
+    port: 8080
   },
   preview: {
     allowedHosts: true,
