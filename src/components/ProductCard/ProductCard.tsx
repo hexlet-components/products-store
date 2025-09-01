@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getPriceWithDiscount } from '../../utilities';
-import './styles.scss';
+import './styles.css';
 
 interface ProductCardProps {
   id: number,

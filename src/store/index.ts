@@ -5,15 +5,18 @@ import store from './reducers/store';
 import product from './reducers/product';
 import cart from './reducers/cart';
 
-const sagaMiddleWare = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware();
 
-export default configureStore({
+const appStore = configureStore({
   reducer: {
     store,
     product,
     cart,
   },
-  middleware: [sagaMiddleWare],
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
 });
 
-rootSagas.map(sagaMiddleWare.run);
+rootSagas.forEach((saga) => sagaMiddleware.run(saga));
+
+export default appStore;

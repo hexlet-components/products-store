@@ -4,73 +4,34 @@
   "description": "Hexlet QA market",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.3",
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.9",
-    "bootstrap": "^5.2.3",
-    "i18next": "^22.0.6",
-    "node-sass": "^7.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-i18next": "^12.0.0",
-    "react-redux": "^8.0.5",
-    "react-router-dom": "^6.4.3",
-    "react-scripts": "5.0.1",
-    "redux-saga": "^1.2.1",
-    "typescript": "^4.9.3",
-    "web-vitals": "^2.1.4"
+    "@reduxjs/toolkit": "^2.8.2",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.3.0",
+    "@types/react-dom": "^19.1.9",
+    "@types/react": "^19.1.12",
+    "@vitejs/plugin-react": "^5.0.2",
+    "bootstrap": "^5.3.8",
+    "i18next": "^25.4.2",
+    "react-dom": "^19.1.1",
+    "react-i18next": "^15.7.3",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.8.2",
+    "react": "^19.1.1",
+    "redux-saga": "^1.3.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "eslint-config-airbnb-base",
-      "react-app/jest"
-    ],
-    "rules": {
-      "import/no-unresolved": 0,
-      "import/extensions": 0,
-      "indent": [
-        "warn"
-      ],
-      "no-unused-vars": "off",
-      "quotes": [
-        "warn",
-        "single"
-      ],
-      "consistent-return": "warn",
-      "no-trailing-spaces": "warn",
-      "semi": "warn",
-      "object-curly-newline": "off",
-      "arrow-body-style": "warn",
-      "max-len": ["warn", 130]
-    }
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "devDependencies": {
-    "eslint-config-airbnb-base": "^15.0.0",
-    "i": "^0.3.7",
-    "npm": "^9.1.2"
+    "jsdom": "^26.1.0",
+    "npm-check-updates": "^18.0.3",
+    "vitest": "^3.2.4"
   }
 }
