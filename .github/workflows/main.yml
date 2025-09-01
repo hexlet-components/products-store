@@ -1,12 +1,12 @@
-name: Python CI
+name: Main
 
 on:
   push:
     branches:
-      - main
+      - v2_bug_fixes
   pull_request:
     branches:
-      - main
+      - v2_bug_fixes
 
 jobs:
   build:
@@ -43,6 +43,7 @@ jobs:
         with:
           context: .
           push: true
-          cache-from: ghcr.io/${{ github.repository }}:latest
+          file: Dockerfile.rpdouction
+          cache-from: ghcr.io/${{ github.repository }}:v2
           cache-to: type=inline
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository }}:v2
