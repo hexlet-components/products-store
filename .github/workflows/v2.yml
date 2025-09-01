@@ -1,0 +1,13 @@
+name: V2
+on:
+  push:
+    branches: [ v2_bug_fixes ]
+  pull_request:
+    branches: [ v2_bug_fixes ]
+
+jobs:
+  call:
+    uses: ./.github/workflows/build-and-deploy.yml
+    with:
+      branch: v2_bug_fixes
+      tag: v2

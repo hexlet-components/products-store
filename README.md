@@ -1,10 +1,45 @@
-# Products-store-hexlet
+Small store for QA.
 
-## To start:
-### `npm start`
+## Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-### `npm run build`
+Make sure you have the following installed:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Unix (Linux, Macos)
+- Node.js (>= 24.x)
+- npm
+- Make (build tool)
+- Git (version control system)
+- Docker (optional, for containerized environments)
+
+## Installation
+
+Install dependencies:
+
+```bash
+make install
+```
+
+## Usage
+
+Start the development server:
+
+```bash
+make start
+```
+Open your browser and navigate to `http://localhost:3000`.
+
+## Contributing
+
+Contributions are welcome! Please follow our [contribution guidelines](CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+Happy coding!
+---
+
+[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/assets/master/images/hexlet_logo128.png)](https://hexlet.io/?utm_source=github&utm_medium=referral&utm_campaign=hexlet-components&utm_content=products-store)
+
+This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet](https://hexlet.io/?utm_source=github&utm_medium=referral&utm_campaign=hexlet-components&utm_content=products-store).
