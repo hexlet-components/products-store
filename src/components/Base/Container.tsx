@@ -1,14 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC } from 'react'
 
 interface ContainerProps {
-    children: React.ReactElement | React.ReactElement[];
-    styles?: string;
+  children: React.ReactElement | React.ReactElement[]
+  styles?: string
 }
 
 const Container: FC<ContainerProps> = ({ children, styles }) => (
-        <div className={`container ${styles || ''}`}>
-            {children}
-        </div>
-);
+  <div className={`container ${styles || ''}`}>
+    {children}
+  </div>
+)
 
-export default Container;
+export default Container

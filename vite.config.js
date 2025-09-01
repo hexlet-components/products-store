@@ -1,21 +1,21 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
   server: {
     allowedHosts: true,
     host: true,
-    port: 8080
+    port: 8080,
   },
   preview: {
     allowedHosts: true,
     host: true,
-    port: process.env.PORT
+    port: process.env.PORT || 8080,
   },
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './setupTests.ts'
-  }
-});
+    setupFiles: './setupTests.ts',
+  },
+})

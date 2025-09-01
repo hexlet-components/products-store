@@ -1,26 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { ProductT } from '../../types/product';
+import { createSlice } from '@reduxjs/toolkit'
+import { ProductT } from '../../types/product'
 
-const initialState: {product: ProductT | null, isLoading: boolean} = {
+const initialState: { product: ProductT | null, isLoading: boolean } = {
   product: null,
   isLoading: false,
-};
+}
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    startFetchProduct: (state, { payload }) => ({
+    startFetchProduct: state => ({
       isLoading: true,
       product: state.product,
     }),
-    addProduct: (state, { payload }) => ({
+    addProduct: (_state, { payload }) => ({
       isLoading: false,
       product: { ...payload },
     }),
   },
-});
+})
 
-export const { addProduct, startFetchProduct } = productSlice.actions;
+export const { addProduct, startFetchProduct } = productSlice.actions
 
-export default productSlice.reducer;
+export default productSlice.reducer

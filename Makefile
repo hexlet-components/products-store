@@ -13,6 +13,12 @@ preview:
 test:
 	npm run test
 
+lint:
+	npx eslint .
+
+lint-fix:
+	npx eslint . --fix
+
 compose-production:
 	docker compose -f docker-compose.production.yml down -v --remove-orphans
 	docker compose -f docker-compose.production.yml build

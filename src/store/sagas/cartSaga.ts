@@ -1,14 +1,14 @@
-import { put, takeEvery, call, select } from 'redux-saga/effects';
-import { updateCartSessionStorage } from '../../services/cart';
-import { CartT } from '../../types/cart';
-import { ProductT } from '../../types/product';
-import { addToCart, removeFromCart, updateCart } from '../reducers/cart';
-import { selectCart } from '../selectors';
+import { put, takeEvery, call, select } from 'redux-saga/effects'
+import { updateCartSessionStorage } from '../../services/cart'
+import { CartT } from '../../types/cart'
+import { ProductT } from '../../types/product'
+import { addToCart, removeFromCart, updateCart } from '../reducers/cart'
+import { selectCart } from '../selectors'
 
-function* addAndUpdateCartState({ payload }: {payload: ProductT}) {
-  const cart: CartT = yield select(selectCart);
+function* addAndUpdateCartState({ payload }: { payload: ProductT }) {
+  const cart: CartT = yield select(selectCart)
 
-  const item = cart[payload.id];
+  const item = cart[payload.id]
 
   if (!item) {
     const newCart = {
@@ -17,15 +17,15 @@ function* addAndUpdateCartState({ payload }: {payload: ProductT}) {
         quantity: 1,
         product: payload,
       },
-    };
+    }
 
-    yield call(updateCartSessionStorage, newCart);
-    yield put(updateCart(newCart));
-    return;
+    yield call(updateCartSessionStorage, newCart)
+    yield put(updateCart(newCart))
+    return
   }
 
-  const { quantity } = item;
-  if (quantity === payload.stock) return;
+  const { quantity } = item
+  if (quantity === payload.stock) return
 
   const newCart = {
     ...cart,
@@ -33,15 +33,15 @@ function* addAndUpdateCartState({ payload }: {payload: ProductT}) {
       quantity: quantity + 1,
       product: payload,
     },
-  };
+  }
 
-  yield call(updateCartSessionStorage, newCart);
-  yield put(updateCart(newCart));
+  yield call(updateCartSessionStorage, newCart)
+  yield put(updateCart(newCart))
 }
 
-function* removeAndUpdateCartState({ payload }: {payload: number}) {
-  const cart: CartT = yield select(selectCart);
-  const { quantity } = cart[payload];
+function* removeAndUpdateCartState({ payload }: { payload: number }) {
+  const cart: CartT = yield select(selectCart)
+  const { quantity } = cart[payload]
 
   if (quantity > 1) {
     const newCart = {
@@ -50,21 +50,21 @@ function* removeAndUpdateCartState({ payload }: {payload: number}) {
         quantity: quantity - 1,
         product: { ...cart[payload].product },
       },
-    };
+    }
 
-    yield call(updateCartSessionStorage, newCart);
-    yield put(updateCart(newCart));
-    return;
+    yield call(updateCartSessionStorage, newCart)
+    yield put(updateCart(newCart))
+    return
   }
 
-  const newCart = { ...cart };
-  delete newCart[payload];
+  const newCart = { ...cart }
+  delete newCart[payload]
 
-  yield call(updateCartSessionStorage, newCart);
-  yield put(updateCart(newCart));
+  yield call(updateCartSessionStorage, newCart)
+  yield put(updateCart(newCart))
 }
 
 export default function* storeSaga() {
-  yield takeEvery(addToCart, addAndUpdateCartState);
-  yield takeEvery(removeFromCart, removeAndUpdateCartState);
+  yield takeEvery(addToCart, addAndUpdateCartState)
+  yield takeEvery(removeFromCart, removeAndUpdateCartState)
 }

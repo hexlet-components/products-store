@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { StoreT } from '../../types/store';
+import { createSlice } from '@reduxjs/toolkit'
+import { StoreT } from '../../types/store'
 
 const initialState: StoreT = {
   isLoading: false,
@@ -7,13 +7,13 @@ const initialState: StoreT = {
   limit: 0,
   skip: 0,
   total: 0,
-};
+}
 
 export const storeSlice = createSlice({
   name: 'store',
   initialState,
   reducers: {
-    startFetchStore: (state) => ({
+    startFetchStore: state => ({
       ...state,
       isLoading: true,
       products: state.products,
@@ -26,19 +26,19 @@ export const storeSlice = createSlice({
       limit: payload.limit,
       total: payload.total,
     }),
-    nextPage: (state) => ({
+    nextPage: state => ({
       ...state,
       skip: state.skip + state.limit,
     }),
-    prevPage: (state) => ({
+    prevPage: state => ({
       ...state,
       skip: state.skip - state.limit,
     }),
   },
-});
+})
 
 export const {
   updateStoreState, startFetchStore, nextPage, prevPage,
-} = storeSlice.actions;
+} = storeSlice.actions
 
-export default storeSlice.reducer;
+export default storeSlice.reducer

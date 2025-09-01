@@ -1,9 +1,9 @@
-import { ProductsT } from './product';
+import { ProductsT } from './product'
 
 export type StoreT = {
-    isLoading: boolean,
-    products: ProductsT,
-    limit: number,
-    skip: number,
-    total: number,
-};
+  isLoading: boolean
+  products: ProductsT
+  limit: number
+  skip: number
+  total: number
+}
