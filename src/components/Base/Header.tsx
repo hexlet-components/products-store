@@ -28,6 +28,10 @@ const languages = [
     text: 'Russian',
     lang: 'ru',
   },
+  {
+    text: 'Spanish',
+    lang: 'es',
+  },
 ];
 
 const cartLengthStyle = { height: '20px', width: '20px', fontSize: '12px' };
