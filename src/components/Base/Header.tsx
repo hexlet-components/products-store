@@ -6,6 +6,7 @@ import { selectCart, selectCartProductsCount } from '../../store/selectors'
 import Container from './Container'
 import Dropdown from '../Dropdown/Dropdown'
 import ruFlag from '../../assets/flag-ru.svg'
+import esFlag from '../../assets/flag-es.svg'
 
 const links = [
   {
@@ -29,6 +30,11 @@ const languages = [
     text: 'Russian',
     lang: 'ru',
     flag: ruFlag,
+  },
+  {
+    text: 'Spanish',
+    lang: 'es',
+    flag: esFlag,
   },
 ]
 
