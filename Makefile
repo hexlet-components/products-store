@@ -14,10 +14,10 @@ test:
 	npm run test
 
 lint:
-	npx eslint .
+	npx biome check .
 
 lint-fix:
-	npx eslint . --fix
+	npx biome check --write .
 
 compose-production:
 	docker compose -f docker-compose.production.yml down -v --remove-orphans

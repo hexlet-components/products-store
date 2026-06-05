@@ -1,23 +1,21 @@
-import { CartT } from '../types/cart'
+import type { CartT } from '../types/cart';
 
 export const updateCartSessionStorage = (cart: CartT) => {
-  sessionStorage.removeItem('cart')
+  sessionStorage.removeItem('cart');
 
   try {
-    sessionStorage.setItem('cart', JSON.stringify(cart))
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+  } catch (error) {
+    console.error(error);
   }
-  catch (error) {
-    console.error(error)
-  }
-}
+};
 
 export const getCartFromSessionStorage = () => {
-  const cart = sessionStorage.getItem('cart')
+  const cart = sessionStorage.getItem('cart');
 
   try {
-    return cart ? JSON.parse(cart) : {}
+    return cart ? JSON.parse(cart) : {};
+  } catch (error) {
+    console.error(error);
   }
-  catch (error) {
-    console.error(error)
-  }
-}
+};

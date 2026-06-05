@@ -1,15 +1,14 @@
-import { ProductT } from '../types/product'
+import type { ProductT } from '../types/product';
 
 const fetchProduct = async (id: number) => {
   try {
-    const resp = await fetch(`https://dummyjson.com/products/${id}`)
-    const data: ProductT = await resp.json()
+    const resp = await fetch(`https://dummyjson.com/products/${id}`);
+    const data: ProductT = await resp.json();
 
-    return data
+    return data;
+  } catch (error) {
+    console.error(error);
   }
-  catch (error) {
-    console.error(error)
-  }
-}
+};
 
-export default fetchProduct
+export default fetchProduct;

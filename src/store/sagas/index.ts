@@ -1,9 +1,5 @@
-import storeSaga from './storeSaga'
-import productSaga from './productSaga'
-import cartSaga from './cartSaga'
+import cartSaga from './cartSaga';
+import productSaga from './productSaga';
+import storeSaga from './storeSaga';
 
-export default [
-  storeSaga,
-  productSaga,
-  cartSaga,
-]
+export default [storeSaga, productSaga, cartSaga];

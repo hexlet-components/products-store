@@ -1,12 +1,16 @@
-import React, { FC } from 'react'
+import type { FC } from 'react';
 
 interface CheckBoxItemsProps {
-  item: string
-  isChecked: boolean
-  handleCheck: (item: string) => void
+  item: string;
+  isChecked: boolean;
+  handleCheck: (item: string) => void;
 }
 
-const CheckBoxItems: FC<CheckBoxItemsProps> = ({ item, isChecked, handleCheck }) => (
+const CheckBoxItems: FC<CheckBoxItemsProps> = ({
+  item,
+  isChecked,
+  handleCheck,
+}) => (
   <div className="form-check">
     <input
       className="form-check-input"
@@ -17,13 +21,10 @@ const CheckBoxItems: FC<CheckBoxItemsProps> = ({ item, isChecked, handleCheck })
       onChange={() => handleCheck(item)}
     />
 
-    <label
-      className="form-check-label"
-      htmlFor={`${item}-check`}
-    >
+    <label className="form-check-label" htmlFor={`${item}-check`}>
       {item}
     </label>
   </div>
-)
+);
 
-export default CheckBoxItems
+export default CheckBoxItems;

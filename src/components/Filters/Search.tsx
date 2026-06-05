@@ -1,15 +1,17 @@
-import React, { FC, Dispatch, SetStateAction } from 'react'
-import { useTranslation } from 'react-i18next'
+import type React from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface SearchProps {
-  input: string
-  setInput: Dispatch<SetStateAction<string>>
+  input: string;
+  setInput: Dispatch<SetStateAction<string>>;
 }
 
 const Search: FC<SearchProps> = ({ input, setInput }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setInput(e.target.value);
 
   return (
     <input
@@ -19,7 +21,7 @@ const Search: FC<SearchProps> = ({ input, setInput }) => {
       placeholder={t('search') || ''}
       onChange={handleChange}
     />
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

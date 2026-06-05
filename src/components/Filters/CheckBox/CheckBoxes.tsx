@@ -1,18 +1,17 @@
-import React, { FC } from 'react'
+import type React from 'react';
+import type { FC } from 'react';
 
 interface CheckBoxesProps {
-  title: string
-  children: React.ReactNode | React.ReactNode[]
+  title: string;
+  children: React.ReactNode | React.ReactNode[];
 }
 
 const CheckBoxes: FC<CheckBoxesProps> = ({ title, children }) => (
   <div className="mt-3 pb-3">
-    <span className="h6">
-      {title}
-    </span>
+    <span className="h6">{title}</span>
 
-    { children }
+    {children}
   </div>
-)
+);
 
-export default CheckBoxes
+export default CheckBoxes;

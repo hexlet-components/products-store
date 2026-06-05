@@ -1,14 +1,15 @@
-import React, { FC, useState } from 'react'
+import type React from 'react';
+import { type FC, useState } from 'react';
 
 interface DropdownProps {
-  title: string
-  children: React.ReactNode | React.ReactNode[]
+  title: string;
+  children: React.ReactNode | React.ReactNode[];
 }
 
 const Dropdown: FC<DropdownProps> = ({ title, children }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleDropDown = () => setIsExpanded(p => !p)
+  const toggleDropDown = () => setIsExpanded((p) => !p);
   return (
     <div
       className={`nav-item dropdown ${isExpanded ? 'show' : ''}`}
@@ -27,7 +28,7 @@ const Dropdown: FC<DropdownProps> = ({ title, children }) => {
         {children}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Dropdown
+export default Dropdown;

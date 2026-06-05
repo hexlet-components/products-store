@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Footer = () => (
   <footer className="py-4 text-bg-dark">
     <div className="container b-share text-center">
@@ -14,11 +12,9 @@ const Footer = () => (
         Hexlet
       </a>
 
-      <p>
-        version 1
-      </p>
+      <p>version 1</p>
     </div>
   </footer>
-)
+);
 
-export default Footer
+export default Footer;

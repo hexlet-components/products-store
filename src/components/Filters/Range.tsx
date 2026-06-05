@@ -1,15 +1,16 @@
-import React, { FC } from 'react'
+import type React from 'react';
+import type { FC } from 'react';
 
 interface RangeProps {
-  minPriceRange: string
-  maxPriceRange: string
-  title: string
-  handleMinChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  handleMaxChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  step?: number
-  text: string
-  minValue: string
-  maxValue: string
+  minPriceRange: string;
+  maxPriceRange: string;
+  title: string;
+  handleMinChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleMaxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  step?: number;
+  text: string;
+  minValue: string;
+  maxValue: string;
 }
 
 const Range: FC<RangeProps> = ({
@@ -23,17 +24,12 @@ const Range: FC<RangeProps> = ({
   text,
 }) => (
   <div className="mb-5">
-    <label
-      htmlFor="priceRange"
-      className="form-label h6"
-    >
+    <label htmlFor="priceRange" className="form-label h6">
       {title}
     </label>
 
     <div className="input-group">
-      <span className="input-group-text">
-        {text}
-      </span>
+      <span className="input-group-text">{text}</span>
 
       <input
         type="number"
@@ -54,6 +50,6 @@ const Range: FC<RangeProps> = ({
       />
     </div>
   </div>
-)
+);
 
-export default Range
+export default Range;

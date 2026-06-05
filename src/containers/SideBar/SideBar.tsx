@@ -1,100 +1,110 @@
-import React, { useState, useEffect, ChangeEvent, FC } from 'react'
-import { useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-import Dropdown from '../../components/Dropdown/Dropdown'
-import Search from '../../components/Filters/Search'
-import { selectBrands, selectCategories, selectMaxPrice } from '../../store/selectors'
-import CheckBoxes from '../../components/Filters/CheckBox/CheckBoxes'
-import Range from '../../components/Filters/Range'
-import CheckBoxItems from '../../components/Filters/CheckBox/CheckBoxItems'
-import { ProductsT } from '../../types/product'
-import { filterProducts } from '../../utilities'
+import { type ChangeEvent, type FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import Dropdown from '../../components/Dropdown/Dropdown';
+import CheckBoxes from '../../components/Filters/CheckBox/CheckBoxes';
+import CheckBoxItems from '../../components/Filters/CheckBox/CheckBoxItems';
+import Range from '../../components/Filters/Range';
+import Search from '../../components/Filters/Search';
+import {
+  selectBrands,
+  selectCategories,
+  selectMaxPrice,
+} from '../../store/selectors';
+import type { ProductsT } from '../../types/product';
+import { filterProducts } from '../../utilities';
 
 interface SideBarProps {
-  products: ProductsT
-  changeFilteredProducts: (filtered: ProductsT) => void
+  products: ProductsT;
+  changeFilteredProducts: (filtered: ProductsT) => void;
 }
 
-const minPriceRange = '0'
+const minPriceRange = '0';
 
 const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
-  const { t } = useTranslation()
-  const categories = useSelector(selectCategories)
-  const brands = useSelector(selectBrands)
-  const maxPriceRange = useSelector(selectMaxPrice)
+  const { t } = useTranslation();
+  const categories = useSelector(selectCategories);
+  const brands = useSelector(selectBrands);
+  const maxPriceRange = useSelector(selectMaxPrice);
 
-  const [categoryFilter, setCategoryFilter] = useState('')
-  const [inputFilter, setSearchInput] = useState('')
-  const [brandsFilter, setCheckedBrand] = useState(new Set(''))
-  const [isInStock, setIsInStock] = useState(true)
-  const [minPrice, setMinPrice] = useState('')
-  const [maxPrice, setMaxPrice] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [inputFilter, setSearchInput] = useState('');
+  const [brandsFilter, setCheckedBrand] = useState(new Set(''));
+  const [isInStock, setIsInStock] = useState(true);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   useEffect(() => {
-    const minValue = Number(minPrice) || 0
-    const maxValue = maxPrice || maxPriceRange
+    const minValue = Number(minPrice) || 0;
+    const maxValue = maxPrice || maxPriceRange;
 
     changeFilteredProducts(
-      filterProducts(products, categoryFilter, inputFilter, brandsFilter, minValue, maxValue, isInStock),
-    )
-  }, [categoryFilter, inputFilter, brandsFilter, isInStock, products, minPrice, maxPrice, maxPriceRange])
+      filterProducts(
+        products,
+        categoryFilter,
+        inputFilter,
+        brandsFilter,
+        minValue,
+        maxValue,
+        isInStock,
+      ),
+    );
+  }, [
+    categoryFilter,
+    inputFilter,
+    brandsFilter,
+    isInStock,
+    products,
+    minPrice,
+    maxPrice,
+    maxPriceRange,
+    changeFilteredProducts,
+  ]);
 
   const handleCheck = (brand: string) => {
     setCheckedBrand((prev) => {
       if (prev.has(brand)) {
-        const next = new Set(prev)
-        next.delete(brand)
+        const next = new Set(prev);
+        next.delete(brand);
 
-        return next
+        return next;
       }
 
-      return new Set(prev).add(brand)
-    })
-  }
+      return new Set(prev).add(brand);
+    });
+  };
 
-  const handleIsInStock = () => setIsInStock(p => !p)
+  const handleIsInStock = () => setIsInStock((p) => !p);
 
   return (
-    <div
-      style={{ maxWidth: '25%' }}
-      className="col border-end pt-5 me-4"
-    >
-      <Search
-        input={inputFilter}
-        setInput={setSearchInput}
-      />
+    <div style={{ maxWidth: '25%' }} className="col border-end pt-5 me-4">
+      <Search input={inputFilter} setInput={setSearchInput} />
 
       <div>
         <Dropdown title={t('category')}>
-          {
-            categories.map((category: string) => (
-              <li
-                className="dropdown-item"
-                key={category}
-                onClick={() => setCategoryFilter(category)}
-              >
-                {category}
-              </li>
-            ))
-          }
+          {categories.map((category: string) => (
+            <li
+              className="dropdown-item"
+              key={category}
+              onClick={() => setCategoryFilter(category)}
+            >
+              {category}
+            </li>
+          ))}
         </Dropdown>
 
-        <span>
-          {categoryFilter}
-        </span>
+        <span>{categoryFilter}</span>
       </div>
 
       <CheckBoxes title={t('brand')}>
-        {
-          brands.map(brand => (
-            <CheckBoxItems
-              key={brand}
-              handleCheck={handleCheck}
-              item={brand}
-              isChecked={brandsFilter.has(brand)}
-            />
-          ))
-        }
+        {brands.map((brand) => (
+          <CheckBoxItems
+            key={brand}
+            handleCheck={handleCheck}
+            item={brand}
+            isChecked={brandsFilter.has(brand)}
+          />
+        ))}
       </CheckBoxes>
 
       <CheckBoxes title={t('isInStock')}>
@@ -108,10 +118,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
             onChange={handleIsInStock}
           />
 
-          <label
-            className="form-check-label"
-            htmlFor="isInStock"
-          >
+          <label className="form-check-label" htmlFor="isInStock">
             {t('isInStock')}
           </label>
         </div>
@@ -121,14 +128,18 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
         maxPriceRange={maxPriceRange}
         minPriceRange={minPriceRange}
         title={t('price')}
-        handleMinChange={(e: ChangeEvent<HTMLInputElement>) => setMinPrice(e.target.value)}
-        handleMaxChange={(e: ChangeEvent<HTMLInputElement>) => setMaxPrice(e.target.value)}
+        handleMinChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setMinPrice(e.target.value)
+        }
+        handleMaxChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setMaxPrice(e.target.value)
+        }
         text={t('fromTo')}
         minValue={minPrice}
         maxValue={maxPrice}
       />
     </div>
-  )
-}
+  );
+};
 
-export default SideBar
+export default SideBar;

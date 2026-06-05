@@ -1,16 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { ProductT } from '../../types/product'
+import { createSlice } from '@reduxjs/toolkit';
+import type { ProductT } from '../../types/product';
 
-const initialState: { product: ProductT | null, isLoading: boolean } = {
+const initialState: { product: ProductT | null; isLoading: boolean } = {
   product: null,
   isLoading: false,
-}
+};
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    startFetchProduct: state => ({
+    startFetchProduct: (state) => ({
       isLoading: true,
       product: state.product,
     }),
@@ -19,8 +19,8 @@ export const productSlice = createSlice({
       product: { ...payload },
     }),
   },
-})
+});
 
-export const { addProduct, startFetchProduct } = productSlice.actions
+export const { addProduct, startFetchProduct } = productSlice.actions;
 
-export default productSlice.reducer
+export default productSlice.reducer;

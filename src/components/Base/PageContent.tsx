@@ -1,8 +1,9 @@
-import React, { FC } from 'react'
+import type React from 'react';
+import type { FC } from 'react';
 
 interface PageContentProps {
-  children: React.ReactElement | React.ReactElement[]
-  styles?: string
+  children: React.ReactElement | React.ReactElement[];
+  styles?: string;
 }
 
 const PageContent: FC<PageContentProps> = ({ children, styles }) => (
@@ -12,6 +13,6 @@ const PageContent: FC<PageContentProps> = ({ children, styles }) => (
   >
     {children}
   </div>
-)
+);
 
-export default PageContent
+export default PageContent;
