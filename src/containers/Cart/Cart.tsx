@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Container from '../../components/Base/Container';
 import PageContent from '../../components/Base/PageContent';
+import { API_BASE } from '../../services/apiConfig';
 import { clearCart } from '../../store/reducers/cart';
 import { ProductsT, ProductT } from '../../types/product';
 import CartList from '../../components/CartList/CartList';
@@ -31,16 +32,28 @@ const Cart = () => {
   useEffect(() => {
     if (!isOpen) return;
 
-    const fake = async () => {
+    const createOrder = async () => {
       try {
-        const response = await fetch('https://dummyjson.com/http/500/failed');
-        const data = await response.json();
+        const order = {
+          products: Object.values(cart).map(({ product, quantity }) => ({
+            id: product.id,
+            quantity,
+          })),
+          total: getTotalPrice(),
+        };
+
+        const response = await fetch(`${API_BASE}/orders`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(order),
+        });
+        await response.json();
       } catch (error) {
         console.error(error);
       }
     };
 
-    fake();
+    createOrder();
   }, [isOpen]);
 
   return (
