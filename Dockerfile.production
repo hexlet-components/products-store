@@ -10,4 +10,5 @@ COPY . .
 
 RUN npm run build
 
-CMD ["npx", "vite", "preview"]
+# Fastify serves the built SPA (dist/), the bundled product images and /api.
+CMD ["npm", "run", "start:prod"]

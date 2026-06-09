@@ -7,6 +7,7 @@ import PageContent from '../../components/Base/PageContent';
 import CartList from '../../components/CartList/CartList';
 import CartListShort from '../../components/CartList/CartListShort';
 import Modal from '../../components/Modal/Modal';
+import { API_BASE } from '../../services/apiConfig';
 import { clearCart } from '../../store/reducers/cart';
 import { selectCart, selectCartProducts } from '../../store/selectors';
 import type { CartT } from '../../types/cart';
@@ -39,7 +40,7 @@ const Cart = () => {
 
     const fake = async () => {
       try {
-        const response = await fetch('https://dummyjson.com/http/500/failed');
+        const response = await fetch(`${API_BASE}/http/500/failed`);
         await response.json();
       } catch (error) {
         console.error(error);
