@@ -7,6 +7,9 @@ start:
 build:
 	npm run build
 
+seed:
+	node server/scripts/seed.mjs
+
 preview:
 	npm run preview
 

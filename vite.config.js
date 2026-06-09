@@ -7,6 +7,9 @@ export default defineConfig({
     allowedHosts: true,
     host: true,
     port: 8080,
+    proxy: {
+      '/api': 'http://localhost:3001',
+    },
   },
   preview: {
     allowedHosts: true,

@@ -1,4 +1,4 @@
-FROM node:24-alpine
+FROM node:26-alpine
 
 WORKDIR /app
 
@@ -10,4 +10,5 @@ COPY . .
 
 RUN npm run build
 
-CMD ["npx", "vite", "preview"]
+# Fastify serves the built SPA (dist/), the bundled product images and /api.
+CMD ["npm", "run", "start:prod"]
