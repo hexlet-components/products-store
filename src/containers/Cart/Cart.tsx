@@ -35,19 +35,33 @@ const Cart = () => {
 
   const handleClick = () => setIsOpen((prev) => !prev);
 
+  // The order is placed once when the modal opens; cart/total are read at that moment.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional fire-on-open
   useEffect(() => {
     if (!isOpen) return;
 
-    const fake = async () => {
+    const createOrder = async () => {
       try {
-        const response = await fetch(`${API_BASE}/http/500/failed`);
+        const order = {
+          products: Object.values(cart).map(({ product, quantity }) => ({
+            id: product.id,
+            quantity,
+          })),
+          total: getTotalPrice(),
+        };
+
+        const response = await fetch(`${API_BASE}/orders`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(order),
+        });
         await response.json();
       } catch (error) {
         console.error(error);
       }
     };
 
-    fake();
+    createOrder();
   }, [isOpen]);
 
   return (

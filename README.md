@@ -5,7 +5,7 @@ Small store for QA.
 Make sure you have the following installed:
 
 - Unix (Linux, Macos)
-- Node.js (>= 24.x)
+- Node.js (>= 26.x)
 - npm
 - Make (build tool)
 - Git (version control system)
@@ -27,6 +27,17 @@ Start the development server:
 make start
 ```
 Open your browser and navigate to `http://localhost:8080`.
+
+`make start` runs both the front-end (Vite on `:8080`) and the internal API
+(Fastify on `:3001`); Vite proxies `/api` to it. In production a single Fastify
+process serves the built SPA, the product images and the `/api` endpoints.
+
+The product catalogue and images are a self-contained snapshot under
+`server/data/products.json` and `public/product-images/`. To regenerate it run:
+
+```bash
+make seed
+```
 
 ---
 
