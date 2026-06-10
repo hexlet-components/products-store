@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import Container from '../../components/Base/Container';
@@ -32,8 +32,10 @@ const Store = () => {
 
   const addProductToCart = (product: ProductT) => dispatch(addToCart(product));
 
-  const changeFilteredProducts = (filtered: ProductsT) =>
-    setFilteredProducts(filtered);
+  const changeFilteredProducts = useCallback(
+    (filtered: ProductsT) => setFilteredProducts(filtered),
+    [],
+  );
 
   return (
     <PageContent>
