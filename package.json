@@ -5,30 +5,30 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@fastify/autoload": "^6.3.1",
+    "@fastify/autoload": "^6.5.0",
     "@fastify/sensible": "^6.0.4",
-    "@fastify/static": "^8.3.0",
+    "@fastify/static": "^10.1.2",
     "@reduxjs/toolkit": "^2.12.0",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^25.9.1",
-    "@types/react": "^19.2.15",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.2",
+    "@vitejs/plugin-react": "^6.0.4",
     "bootstrap": "^5.3.8",
-    "fastify": "^5.8.5",
+    "fastify": "^5.10.0",
     "fastify-cli": "^8.0.0",
-    "fastify-plugin": "^5.1.0",
-    "i18next": "^26.3.0",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "react-i18next": "^17.0.8",
+    "fastify-plugin": "^6.0.0",
+    "i18next": "^26.3.6",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-i18next": "^17.0.11",
     "react-redux": "^9.3.0",
-    "react-router-dom": "^7.16.0",
-    "redux-saga": "^1.5.0",
-    "typescript": "^6.0.3",
-    "vite": "^8.0.14"
+    "react-router-dom": "^7.18.2",
+    "redux-saga": "^1.5.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5"
   },
   "scripts": {
     "dev": "concurrently -k -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
@@ -45,10 +45,10 @@
     "node": ">=26.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.4",
-    "concurrently": "^9.2.1",
-    "jsdom": "^29.1.1",
-    "npm-check-updates": "^22.2.1",
-    "vitest": "^4.1.7"
+    "@biomejs/biome": "^2.5.6",
+    "concurrently": "^10.0.4",
+    "jsdom": "^30.0.0",
+    "npm-check-updates": "^23.0.0",
+    "vitest": "^4.1.10"
   }
 }
