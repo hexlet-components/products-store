@@ -1,0 +1,11 @@
+# Store every text file with LF in the repository and check it out with LF on
+# every platform. Without this, a Windows clone with core.autocrlf=true gets a
+# CRLF working tree, and `npm run lint` fails on all 70 source files because the
+# Biome formatter expects LF — while CI, running on Linux, passes. This also
+# matches end_of_line = lf in .editorconfig.
+* text=auto eol=lf
+
+# Binary assets: never convert.
+*.webp binary
+*.png binary
+*.ico binary
