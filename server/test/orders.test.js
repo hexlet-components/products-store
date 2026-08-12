@@ -1,9 +1,9 @@
 // @vitest-environment node
 
-import { afterAll, beforeAll, describe, expect, test } from 'vitest';
-import { build } from './helper.js';
+import { afterAll, beforeAll, describe, expect, test } from "vitest";
+import { build } from "./helper.js";
 
-describe('POST /api/orders', () => {
+describe("POST /api/orders", () => {
   let app;
 
   beforeAll(async () => {
@@ -15,10 +15,10 @@ describe('POST /api/orders', () => {
   });
 
   // The deliberate QA bug: placing an order always fails with HTTP 500.
-  test('always responds with 500', async () => {
+  test("always responds with 500", async () => {
     const res = await app.inject({
-      method: 'POST',
-      url: '/api/orders',
+      method: "POST",
+      url: "/api/orders",
       payload: { products: [{ id: 1, quantity: 2 }], total: 19.98 },
     });
 
