@@ -1,11 +1,11 @@
-import type { FC } from 'react';
-import { useDispatch } from 'react-redux';
-import Container from '../../components/Base/Container';
-import PageContent from '../../components/Base/PageContent';
-import ProductInfo from '../../components/Product/ProductInfo';
-import ProductPhotos from '../../components/Product/ProductPhotos';
-import { addToCart, removeFromCart } from '../../store/reducers/cart';
-import type { ProductT } from '../../types/product';
+import type { FC } from "react";
+import { useDispatch } from "react-redux";
+import Container from "../../components/Base/Container";
+import PageContent from "../../components/Base/PageContent";
+import ProductInfo from "../../components/Product/ProductInfo";
+import ProductPhotos from "../../components/Product/ProductPhotos";
+import { addToCart, removeFromCart } from "../../store/reducers/cart";
+import type { ProductT } from "../../types/product";
 
 interface ProductProps {
   productItem: ProductT;

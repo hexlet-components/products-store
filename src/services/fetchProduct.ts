@@ -1,5 +1,5 @@
-import type { ProductT } from '../types/product';
-import { API_BASE } from './apiConfig';
+import type { ProductT } from "../types/product";
+import { API_BASE } from "./apiConfig";
 
 const fetchProduct = async (id: number) => {
   try {

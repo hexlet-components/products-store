@@ -1,6 +1,6 @@
-import type React from 'react';
-import type { Dispatch, FC, SetStateAction } from 'react';
-import { useTranslation } from 'react-i18next';
+import type React from "react";
+import type { Dispatch, FC, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
 
 interface SearchProps {
   input: string;
@@ -10,15 +10,14 @@ interface SearchProps {
 const Search: FC<SearchProps> = ({ input, setInput }) => {
   const { t } = useTranslation();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setInput(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
 
   return (
     <input
       className="mb-3"
       type="text"
       value={input}
-      placeholder={t('search') || ''}
+      placeholder={t("search") || ""}
       onChange={handleChange}
     />
   );

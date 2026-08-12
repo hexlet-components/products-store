@@ -1,25 +1,21 @@
-import { type ChangeEvent, type FC, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import Dropdown from '../../components/Dropdown/Dropdown';
-import CheckBoxes from '../../components/Filters/CheckBox/CheckBoxes';
-import CheckBoxItems from '../../components/Filters/CheckBox/CheckBoxItems';
-import Range from '../../components/Filters/Range';
-import Search from '../../components/Filters/Search';
-import {
-  selectBrands,
-  selectCategories,
-  selectMaxPrice,
-} from '../../store/selectors';
-import type { ProductsT } from '../../types/product';
-import { filterProducts } from '../../utilities';
+import { type ChangeEvent, type FC, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import Dropdown from "../../components/Dropdown/Dropdown";
+import CheckBoxes from "../../components/Filters/CheckBox/CheckBoxes";
+import CheckBoxItems from "../../components/Filters/CheckBox/CheckBoxItems";
+import Range from "../../components/Filters/Range";
+import Search from "../../components/Filters/Search";
+import { selectBrands, selectCategories, selectMaxPrice } from "../../store/selectors";
+import type { ProductsT } from "../../types/product";
+import { filterProducts } from "../../utilities";
 
 interface SideBarProps {
   products: ProductsT;
   changeFilteredProducts: (filtered: ProductsT) => void;
 }
 
-const minPriceRange = '0';
+const minPriceRange = "0";
 
 const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
   const { t } = useTranslation();
@@ -27,12 +23,12 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
   const brands = useSelector(selectBrands);
   const maxPriceRange = useSelector(selectMaxPrice);
 
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [inputFilter, setSearchInput] = useState('');
-  const [brandsFilter, setCheckedBrand] = useState(new Set(''));
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [inputFilter, setSearchInput] = useState("");
+  const [brandsFilter, setCheckedBrand] = useState(new Set(""));
   const [isInStock, setIsInStock] = useState(true);
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   useEffect(() => {
     const minValue = Number(minPrice) || 0;
@@ -77,18 +73,22 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
   const handleIsInStock = () => setIsInStock((p) => !p);
 
   return (
-    <div style={{ maxWidth: '25%' }} className="col border-end pt-5 me-4">
+    <div style={{ maxWidth: "25%" }} className="col border-end pt-5 me-4">
       <Search input={inputFilter} setInput={setSearchInput} />
 
       <div>
-        <Dropdown title={t('category')}>
+        <Dropdown title={t("category")}>
           {categories.map((category: string) => (
-            <li
-              className="dropdown-item"
-              key={category}
-              onClick={() => setCategoryFilter(category)}
-            >
-              {category}
+            <li key={category}>
+              {/* Обработчик на кнопке, а не на <li>: пункт списка не получает
+                  фокус, и с клавиатуры фильтр было не выбрать. */}
+              <button
+                className="dropdown-item"
+                type="button"
+                onClick={() => setCategoryFilter(category)}
+              >
+                {category}
+              </button>
             </li>
           ))}
         </Dropdown>
@@ -96,7 +96,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
         <span>{categoryFilter}</span>
       </div>
 
-      <CheckBoxes title={t('brand')}>
+      <CheckBoxes title={t("brand")}>
         {brands.map((brand) => (
           <CheckBoxItems
             key={brand}
@@ -107,7 +107,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
         ))}
       </CheckBoxes>
 
-      <CheckBoxes title={t('isInStock')}>
+      <CheckBoxes title={t("isInStock")}>
         <div className="form-check">
           <input
             className="form-check-input"
@@ -119,7 +119,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
           />
 
           <label className="form-check-label" htmlFor="isInStock">
-            {t('isInStock')}
+            {t("isInStock")}
           </label>
         </div>
       </CheckBoxes>
@@ -127,14 +127,10 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
       <Range
         maxPriceRange={maxPriceRange}
         minPriceRange={minPriceRange}
-        title={t('price')}
-        handleMinChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setMinPrice(e.target.value)
-        }
-        handleMaxChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setMaxPrice(e.target.value)
-        }
-        text={t('fromTo')}
+        title={t("price")}
+        handleMinChange={(e: ChangeEvent<HTMLInputElement>) => setMinPrice(e.target.value)}
+        handleMaxChange={(e: ChangeEvent<HTMLInputElement>) => setMaxPrice(e.target.value)}
+        text={t("fromTo")}
         minValue={minPrice}
         maxValue={maxPrice}
       />

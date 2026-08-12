@@ -1,5 +1,5 @@
-import type React from 'react';
-import type { FC } from 'react';
+import type React from "react";
+import type { FC } from "react";
 
 interface PageContentProps {
   children: React.ReactElement | React.ReactElement[];
@@ -7,10 +7,7 @@ interface PageContentProps {
 }
 
 const PageContent: FC<PageContentProps> = ({ children, styles }) => (
-  <div
-    className={styles || ''}
-    style={{ minHeight: 'calc(100vh - 144px)', height: '100%' }}
-  >
+  <div className={styles || ""} style={{ minHeight: "calc(100vh - 144px)", height: "100%" }}>
     {children}
   </div>
 );

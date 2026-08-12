@@ -1,6 +1,6 @@
-import Footer from './components/Base/Footer';
-import Header from './components/Base/Header';
-import AppRoutes from './routes/Index';
+import Footer from "./components/Base/Footer";
+import Header from "./components/Base/Header";
+import AppRoutes from "./routes/Index";
 
 const App = () => (
   <div className="App">

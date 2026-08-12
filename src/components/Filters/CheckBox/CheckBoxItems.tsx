@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
 interface CheckBoxItemsProps {
   item: string;
@@ -6,11 +6,7 @@ interface CheckBoxItemsProps {
   handleCheck: (item: string) => void;
 }
 
-const CheckBoxItems: FC<CheckBoxItemsProps> = ({
-  item,
-  isChecked,
-  handleCheck,
-}) => (
+const CheckBoxItems: FC<CheckBoxItemsProps> = ({ item, isChecked, handleCheck }) => (
   <div className="form-check">
     <input
       className="form-check-input"

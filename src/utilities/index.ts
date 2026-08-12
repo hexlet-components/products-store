@@ -1,4 +1,4 @@
-import type { ProductsT } from '../types/product';
+import type { ProductsT } from "../types/product";
 
 export const filterProducts = (
   filterFrom: ProductsT,
@@ -9,13 +9,10 @@ export const filterProducts = (
   maxValue: number,
   isInStock: boolean,
 ) => {
-  let filtered = filterFrom.filter((p) =>
-    p.title.toLowerCase().includes(search.toLowerCase()),
-  );
+  let filtered = filterFrom.filter((p) => p.title.toLowerCase().includes(search.toLowerCase()));
 
   if (category) filtered = filtered.filter((p) => p.category === category);
-  if (Array.from(brands).length)
-    filtered = filtered.filter((p) => brands.has(p.brand));
+  if (Array.from(brands).length) filtered = filtered.filter((p) => brands.has(p.brand));
   if (isInStock) {
     filtered = filtered.filter((p) => p.stock > 0);
   } else filtered = filtered.filter((p) => p.stock === 0);

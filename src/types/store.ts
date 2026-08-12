@@ -1,4 +1,4 @@
-import type { ProductsT } from './product';
+import type { ProductsT } from "./product";
 
 export type StoreT = {
   isLoading: boolean;

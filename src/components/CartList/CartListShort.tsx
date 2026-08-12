@@ -1,14 +1,14 @@
-import type { FC } from 'react';
-import type { CartT } from '../../types/cart';
-import type { ProductsT } from '../../types/product';
-import { getPriceWithDiscount } from '../../utilities';
+import type { FC } from "react";
+import type { CartT } from "../../types/cart";
+import type { ProductsT } from "../../types/product";
+import { getPriceWithDiscount } from "../../utilities";
 
 interface CartListProps {
   products: ProductsT;
   cart: CartT;
 }
 
-const listStyles = { border: '1px solid gray' };
+const listStyles = { border: "1px solid gray" };
 
 const CartListShort: FC<CartListProps> = ({ products, cart }) => {
   const getPrice = (price: number, disacount: number, count: number) =>
@@ -22,7 +22,7 @@ const CartListShort: FC<CartListProps> = ({ products, cart }) => {
           className="mt-2 p-2 ps-4 pe-4 d-flex justify-content-between align-items-center"
           style={listStyles}
         >
-          <h6 className="me-3" style={{ marginBottom: '0' }}>
+          <h6 className="me-3" style={{ marginBottom: "0" }}>
             {p.title}
           </h6>
           <span>{cart[p.id].quantity}</span>

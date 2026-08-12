@@ -1,4 +1,4 @@
-import type { ProductT } from './product';
+import type { ProductT } from "./product";
 
 export type DummyStoreResponseT = {
   products: ProductT;

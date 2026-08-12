@@ -1,5 +1,5 @@
-import type React from 'react';
-import { type FC, useState } from 'react';
+import type React from "react";
+import { type FC, useState } from "react";
 
 interface DropdownProps {
   title: string;
@@ -11,22 +11,22 @@ const Dropdown: FC<DropdownProps> = ({ title, children }) => {
 
   const toggleDropDown = () => setIsExpanded((p) => !p);
   return (
-    <div
-      className={`nav-item dropdown ${isExpanded ? 'show' : ''}`}
-      onClick={toggleDropDown}
-    >
-      <span
+    // Обработчик переехал с обёртки на саму кнопку. Раньше onClick висел на
+    // <div>, а роль кнопки изображал <span role="button">: с клавиатуры
+    // выпадающий список не открывался, потому что фокус на div не попадает и
+    // обработчика клавиш не было.
+    <div className={`nav-item dropdown ${isExpanded ? "show" : ""}`}>
+      <button
         className="nav-link dropdown-toggle"
-        role="button"
+        type="button"
         data-bs-toggle="dropdown"
         aria-expanded={isExpanded}
+        onClick={toggleDropDown}
       >
         {title}
-      </span>
+      </button>
 
-      <ul className={`dropdown-menu ${isExpanded ? 'show' : ''}`}>
-        {children}
-      </ul>
+      <ul className={`dropdown-menu ${isExpanded ? "show" : ""}`}>{children}</ul>
     </div>
   );
 };
