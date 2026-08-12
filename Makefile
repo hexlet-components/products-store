@@ -1,26 +1,27 @@
 install:
-	npm ci
+	pnpm install --frozen-lockfile
 
 start:
-	npm run dev
+	pnpm run dev
 
 build:
-	npm run build
+	pnpm run build
 
 seed:
 	node server/scripts/seed.mjs
 
 preview:
-	npm run preview
+	pnpm run preview
 
 test:
-	npm run test
+	pnpm run test
 
 lint:
-	npx biome check .
+	pnpm --silent run lint
+	pnpm --silent run format:check
 
 lint-fix:
-	npx biome check --write .
+	pnpm --silent run lint:fix
 
 compose-production:
 	docker compose -f docker-compose.production.yml down -v --remove-orphans
