@@ -1,5 +1,5 @@
-import type { DummyStoreResponseT } from '../types/dummyStoreResponse';
-import { API_BASE } from './apiConfig';
+import type { DummyStoreResponseT } from "../types/dummyStoreResponse";
+import { API_BASE } from "./apiConfig";
 
 const fetchStore = async (skip: number) => {
   try {

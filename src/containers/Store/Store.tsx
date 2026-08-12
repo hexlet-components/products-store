@@ -1,20 +1,15 @@
-import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import Container from '../../components/Base/Container';
-import PageContent from '../../components/Base/PageContent';
-import Pagination from '../../components/Pagination/Pagination';
-import ProductCard from '../../components/ProductCard/ProductCard';
-import { addToCart } from '../../store/reducers/cart';
-import { nextPage, prevPage } from '../../store/reducers/store';
-import {
-  selectLimit,
-  selectSkip,
-  selectStore,
-  selectTotal,
-} from '../../store/selectors';
-import type { ProductsT, ProductT } from '../../types/product';
-import SideBar from '../SideBar/SideBar';
+import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import Container from "../../components/Base/Container";
+import PageContent from "../../components/Base/PageContent";
+import Pagination from "../../components/Pagination/Pagination";
+import ProductCard from "../../components/ProductCard/ProductCard";
+import { addToCart } from "../../store/reducers/cart";
+import { nextPage, prevPage } from "../../store/reducers/store";
+import { selectLimit, selectSkip, selectStore, selectTotal } from "../../store/selectors";
+import type { ProductsT, ProductT } from "../../types/product";
+import SideBar from "../SideBar/SideBar";
 
 const Store = () => {
   const { t } = useTranslation();
@@ -40,10 +35,7 @@ const Store = () => {
   return (
     <PageContent>
       <Container styles="row">
-        <SideBar
-          products={products}
-          changeFilteredProducts={changeFilteredProducts}
-        />
+        <SideBar products={products} changeFilteredProducts={changeFilteredProducts} />
 
         <div className="col pt-5">
           <Pagination handleNext={handleNext} handlePrev={handlePrev} />
@@ -64,15 +56,11 @@ const Store = () => {
                 />
               ))
             ) : (
-              <span>{t('Nothing found')}</span>
+              <span>{t("Nothing found")}</span>
             )}
           </div>
 
-          <Pagination
-            handleNext={handleNext}
-            handlePrev={handlePrev}
-            styles="mb-5"
-          />
+          <Pagination handleNext={handleNext} handlePrev={handlePrev} styles="mb-5" />
         </div>
       </Container>
     </PageContent>

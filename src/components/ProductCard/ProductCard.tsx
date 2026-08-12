@@ -1,9 +1,9 @@
-import type React from 'react';
-import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { getPriceWithDiscount } from '../../utilities';
-import './styles.css';
+import type React from "react";
+import type { FC } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { getPriceWithDiscount } from "../../utilities";
+import "./styles.css";
 
 interface ProductCardProps {
   id: number;
@@ -17,7 +17,7 @@ interface ProductCardProps {
 }
 
 const descriptionLength = 201;
-const dots = '...';
+const dots = "...";
 
 const ProductCard: FC<ProductCardProps> = ({
   id,
@@ -44,20 +44,14 @@ const ProductCard: FC<ProductCardProps> = ({
   return (
     <Link to={`/products/${id}`} className="text-decoration-none">
       <div className="card text-muted">
-        <img
-          className="card-img-top"
-          src={thumbnail}
-          alt={title}
-          width="180"
-          height="180"
-        />
+        <img className="card-img-top" src={thumbnail} alt={title} width="180" height="180" />
 
         <div
           className="card-body"
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
         >
           <h6 className="card-title">{title}</h6>
@@ -74,12 +68,8 @@ const ProductCard: FC<ProductCardProps> = ({
             <span>{stock}</span>
 
             {stock ? (
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleClick}
-              >
-                {t('add')}
+              <button type="button" className="btn btn-primary" onClick={handleClick}>
+                {t("add")}
               </button>
             ) : null}
           </div>

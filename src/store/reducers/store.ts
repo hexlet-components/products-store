@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { StoreT } from '../../types/store';
+import { createSlice } from "@reduxjs/toolkit";
+import type { StoreT } from "../../types/store";
 
 const initialState: StoreT = {
   isLoading: false,
@@ -10,7 +10,7 @@ const initialState: StoreT = {
 };
 
 export const storeSlice = createSlice({
-  name: 'store',
+  name: "store",
   initialState,
   reducers: {
     startFetchStore: (state) => ({
@@ -37,7 +37,6 @@ export const storeSlice = createSlice({
   },
 });
 
-export const { updateStoreState, startFetchStore, nextPage, prevPage } =
-  storeSlice.actions;
+export const { updateStoreState, startFetchStore, nextPage, prevPage } = storeSlice.actions;
 
 export default storeSlice.reducer;

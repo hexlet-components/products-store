@@ -1,6 +1,6 @@
-import type React from 'react';
-import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+import type React from "react";
+import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 interface ModalProps {
   title: string;
@@ -14,12 +14,12 @@ const Modal: FC<ModalProps> = ({ title, isOpen, closeModal, children }) => {
 
   return (
     <div
-      className={`modal fade ${isOpen ? 'show' : ''}`}
+      className={`modal fade ${isOpen ? "show" : ""}`}
       tabIndex={-1}
       style={{
-        display: 'block',
+        display: "block",
         zIndex: `${isOpen ? 1 : -1}`,
-        background: '#00000080',
+        background: "#00000080",
       }}
     >
       <div className="modal-dialog">
@@ -44,7 +44,7 @@ const Modal: FC<ModalProps> = ({ title, isOpen, closeModal, children }) => {
               data-bs-dismiss="modal"
               onClick={closeModal}
             >
-              {t('close')}
+              {t("close")}
             </button>
           </div>
         </div>

@@ -1,6 +1,6 @@
-import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { getPriceWithDiscount } from '../../utilities';
+import type { FC } from "react";
+import { useTranslation } from "react-i18next";
+import { getPriceWithDiscount } from "../../utilities";
 
 interface ProductInfoProps {
   category: string;
@@ -26,14 +26,14 @@ const ProductInfo: FC<ProductInfoProps> = ({
 
   return (
     <div className="col-md-6">
-      <a href="#" className="mb-4 d-block">
-        #{category}
-      </a>
+      {/* Не ссылка: переход по категории не реализован, а href="#" уводит
+          в начало страницы и объявляет скринридеру ссылку в никуда. */}
+      <p className="mb-4 d-block">#{category}</p>
 
       <h1 className="mb-1">{title}</h1>
 
       <div className="mb-4">
-        {t('rating')}: {rating} &#9733;
+        {t("rating")}: {rating} &#9733;
       </div>
 
       <i className="bi bi-star-fill" />
@@ -46,9 +46,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
         </span>
 
         <span>
-          <small className="fs-6 ms-2 text-danger">
-            {discountPercentage}% Off
-          </small>
+          <small className="fs-6 ms-2 text-danger">{discountPercentage}% Off</small>
         </span>
       </div>
 
@@ -57,7 +55,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
       <span className="me-4">{stock}</span>
 
       <button type="button" className="btn btn-primary" onClick={addToCart}>
-        {t('add')}
+        {t("add")}
       </button>
     </div>
   );

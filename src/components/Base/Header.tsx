@@ -1,43 +1,43 @@
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import esFlag from '../../assets/flag-es.svg';
-import ruFlag from '../../assets/flag-ru.svg';
-import { selectCart, selectCartProductsCount } from '../../store/selectors';
-import Dropdown from '../Dropdown/Dropdown';
-import Container from './Container';
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import esFlag from "../../assets/flag-es.svg";
+import ruFlag from "../../assets/flag-ru.svg";
+import { selectCart, selectCartProductsCount } from "../../store/selectors";
+import Dropdown from "../Dropdown/Dropdown";
+import Container from "./Container";
 
 const links = [
   {
-    text: 'store',
-    path: '/',
+    text: "store",
+    path: "/",
   },
   {
-    text: 'cart',
-    path: '/cart',
+    text: "cart",
+    path: "/cart",
     withCounter: true,
   },
 ];
 
 const languages = [
   {
-    text: 'English',
-    lang: 'en',
-    flag: 'english',
+    text: "English",
+    lang: "en",
+    flag: "english",
   },
   {
-    text: 'Russian',
-    lang: 'ru',
+    text: "Russian",
+    lang: "ru",
     flag: ruFlag,
   },
   {
-    text: 'Spanish',
-    lang: 'es',
+    text: "Spanish",
+    lang: "es",
     flag: esFlag,
   },
 ];
 
-const cartLengthStyle = { height: '20px', width: '20px', fontSize: '12px' };
+const cartLengthStyle = { height: "20px", width: "20px", fontSize: "12px" };
 
 const Header = () => {
   const { t, i18n } = useTranslation();
@@ -45,8 +45,7 @@ const Header = () => {
   const cart = useSelector(selectCart);
   const productsInCartCount = useSelector(selectCartProductsCount);
 
-  const handleClick = (lang: string) =>
-    setTimeout(() => i18n.changeLanguage(lang), 1000);
+  const handleClick = (lang: string) => setTimeout(() => i18n.changeLanguage(lang), 1000);
 
   return (
     <header className="navbar navbar-expand-lg navbar-light bg-light shadow">
@@ -72,23 +71,20 @@ const Header = () => {
               </li>
             ))}
 
-            <Dropdown title={t('lang')}>
+            <Dropdown title={t("lang")}>
               {languages.map((lang) => (
-                <li
-                  className="dropdown-item"
-                  onClick={() => handleClick(lang.lang)}
-                  key={lang.lang}
-                >
-                  <img
-                    width="22"
-                    className="my-auto me-1 pb-1"
-                    src={lang.flag}
-                    alt={lang.text}
-                  />
+                <li key={lang.lang}>
+                  {/* Обработчик на кнопке, а не на <li>: пункт списка не
+                      получает фокус, и с клавиатуры язык было не переключить. */}
+                  <button
+                    className="dropdown-item d-flex"
+                    type="button"
+                    onClick={() => handleClick(lang.lang)}
+                  >
+                    <img width="22" className="my-auto me-1 pb-1" src={lang.flag} alt={lang.text} />
 
-                  <span className="my-auto text-body-secondary">
-                    {lang.text}
-                  </span>
+                    <span className="my-auto text-body-secondary">{lang.text}</span>
+                  </button>
                 </li>
               ))}
             </Dropdown>

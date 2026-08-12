@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import FallBack from '../../components/Fallback/FallBack';
-import Product from '../../containers/Product/Product';
-import { startFetchProduct } from '../../store/reducers/product';
-import { selectProduct, selectProductIsLoading } from '../../store/selectors';
-import type { ProductT } from '../../types/product';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import FallBack from "../../components/Fallback/FallBack";
+import Product from "../../containers/Product/Product";
+import { startFetchProduct } from "../../store/reducers/product";
+import { selectProduct, selectProductIsLoading } from "../../store/selectors";
+import type { ProductT } from "../../types/product";
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -18,11 +18,7 @@ const ProductPage = () => {
     dispatch(startFetchProduct(id));
   }, [dispatch, id]);
 
-  return isLoading || product === null ? (
-    <FallBack />
-  ) : (
-    <Product productItem={product} />
-  );
+  return isLoading || product === null ? <FallBack /> : <Product productItem={product} />;
 };
 
 export default ProductPage;

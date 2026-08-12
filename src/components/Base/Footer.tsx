@@ -1,7 +1,7 @@
 const Footer = () => (
   <footer className="py-4 text-bg-dark">
     <div className="container b-share text-center">
-      {'created by '}
+      {"created by "}
 
       <a
         href="https://ru.hexlet.io"

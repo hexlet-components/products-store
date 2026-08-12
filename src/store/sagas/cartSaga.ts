@@ -1,9 +1,9 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { updateCartSessionStorage } from '../../services/cart';
-import type { CartT } from '../../types/cart';
-import type { ProductT } from '../../types/product';
-import { addToCart, removeFromCart, updateCart } from '../reducers/cart';
-import { selectCart } from '../selectors';
+import { call, put, select, takeEvery } from "redux-saga/effects";
+import { updateCartSessionStorage } from "../../services/cart";
+import type { CartT } from "../../types/cart";
+import type { ProductT } from "../../types/product";
+import { addToCart, removeFromCart, updateCart } from "../reducers/cart";
+import { selectCart } from "../selectors";
 
 function* addAndUpdateCartState({ payload }: { payload: ProductT }) {
   const cart: CartT = yield select(selectCart);
