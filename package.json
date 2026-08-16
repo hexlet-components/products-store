@@ -39,7 +39,6 @@
     "start:prod": "fastify start -l info -a 0.0.0.0 -p ${PORT:-8080} server/app.js",
     "test": "vitest run",
     "lint": "oxlint --config=.oxlintrc.json .",
-    "lint-fix": "biome check --write .",
     "lint:fix": "oxfmt --ignore-path=.oxfmtignore . && oxlint --config=.oxlintrc.json --fix .",
     "format": "oxfmt --ignore-path=.oxfmtignore .",
     "format:check": "oxfmt --ignore-path=.oxfmtignore --check ."

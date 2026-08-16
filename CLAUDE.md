@@ -34,7 +34,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Конвенции
 
-Biome (`biome.json`) — одновременно линтер, форматтер и организатор импортов; часть a11y-правил и `noArrayIndexKey` отключены намеренно. Перед коммитом — `make lint-fix`.
+oxlint (`.oxlintrc.json`) линтит, oxfmt форматирует; что он не трогает, перечислено в `.oxfmtignore`. Перед коммитом — `make lint-fix`.
 
 ## CI/CD
 
