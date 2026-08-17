@@ -17,7 +17,7 @@ const Search: FC<SearchProps> = ({ input, setInput }) => {
       className="mb-3"
       type="text"
       value={input}
-      placeholder={t("search") || ""}
+      placeholder={t(($) => $.search) || ""}
       onChange={handleChange}
     />
   );

@@ -56,7 +56,7 @@ const Store = () => {
                 />
               ))
             ) : (
-              <span>{t("Nothing found")}</span>
+              <span>{t(($) => $["Nothing found"])}</span>
             )}
           </div>
 

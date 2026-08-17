@@ -33,7 +33,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
       <h1 className="mb-1">{title}</h1>
 
       <div className="mb-4">
-        {t("rating")}: {rating} &#9733;
+        {t(($) => $.rating)}: {rating} &#9733;
       </div>
 
       <i className="bi bi-star-fill" />
@@ -55,7 +55,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
       <span className="me-4">{stock}</span>
 
       <button type="button" className="btn btn-primary" onClick={addToCart}>
-        {t("add")}
+        {t(($) => $.add)}
       </button>
     </div>
   );

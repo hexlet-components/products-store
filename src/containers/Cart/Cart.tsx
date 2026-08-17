@@ -65,11 +65,11 @@ const Cart = () => {
 
   return (
     <PageContent>
-      <Modal isOpen={isOpen} title={t("orderPlaced")} closeModal={handleClick}>
+      <Modal isOpen={isOpen} title={t(($) => $.orderPlaced)} closeModal={handleClick}>
         <CartListShort products={products} cart={cart} />
 
         <span className="h5 ps-2">
-          {t("total")}: {getTotalPrice().toFixed(2)} $
+          {t(($) => $.total)}: {getTotalPrice().toFixed(2)} $
         </span>
       </Modal>
 
@@ -78,16 +78,16 @@ const Cart = () => {
           <div className="d-flex p-2 align-items-center justify-content-around">
             <div>
               <button type="button" onClick={handleClearCart} className="btn btn-danger me-2">
-                {t("clear")}
+                {t(($) => $.clear)}
               </button>
 
               <Link to="/" className="btn btn-secondary">
-                {t("continue")}
+                {t(($) => $.continue)}
               </Link>
             </div>
 
             <span className="h5">
-              {t("total")}: {getTotalPrice().toFixed(2)} $
+              {t(($) => $.total)}: {getTotalPrice().toFixed(2)} $
             </span>
           </div>
         </Container>
@@ -103,7 +103,7 @@ const Cart = () => {
                 style={{ width: "20%" }}
                 onClick={handleClick}
               >
-                {t("buy")}
+                {t(($) => $.buy)}
               </button>
             ) : null}
 

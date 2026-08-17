@@ -44,7 +44,7 @@ const Modal: FC<ModalProps> = ({ title, isOpen, closeModal, children }) => {
               data-bs-dismiss="modal"
               onClick={closeModal}
             >
-              {t("close")}
+              {t(($) => $.close)}
             </button>
           </div>
         </div>
