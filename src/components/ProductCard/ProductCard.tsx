@@ -69,7 +69,7 @@ const ProductCard: FC<ProductCardProps> = ({
 
             {stock ? (
               <button type="button" className="btn btn-primary" onClick={handleClick}>
-                {t("add")}
+                {t(($) => $.add)}
               </button>
             ) : null}
           </div>

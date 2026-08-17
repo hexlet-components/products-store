@@ -42,7 +42,7 @@ const CartList: FC<CartListProps> = ({ products, cart }) => {
               </h6>
 
               <span>
-                {p.stock} {t("quantity")}
+                {p.stock} {t(($) => $.quantity)}
               </span>
             </div>
 
@@ -59,7 +59,7 @@ const CartList: FC<CartListProps> = ({ products, cart }) => {
                 className="btn btn-danger me-1"
                 onClick={(e) => removeProduct(e, p.id)}
               >
-                {t("delete from cart")}
+                {t(($) => $["delete from cart"])}
               </button>
 
               <span className="ps-3">

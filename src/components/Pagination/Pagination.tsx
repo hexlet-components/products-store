@@ -19,13 +19,13 @@ const Pagination: FC<PaginationProps> = ({ handleNext, handlePrev, styles }) => 
             нет обработчика клавиш. */}
         <li className="page-item">
           <button className="page-link" type="button" onClick={handlePrev}>
-            {t("prev")}
+            {t(($) => $.prev)}
           </button>
         </li>
 
         <li className="page-item">
           <button className="page-link" type="button" onClick={handleNext}>
-            {t("next")}
+            {t(($) => $.next)}
           </button>
         </li>
       </ul>

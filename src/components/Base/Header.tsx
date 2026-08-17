@@ -1,3 +1,4 @@
+import type { SelectorParam } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,13 +8,15 @@ import { selectCart, selectCartProductsCount } from "../../store/selectors";
 import Dropdown from "../Dropdown/Dropdown";
 import Container from "./Container";
 
-const links = [
+// Подпись ссылки это селектор, а не строка с ключом: иначе путь до текста не проверяет
+// компилятор, а extract не видит ключ в коде и вычищает его из переводов.
+const links: { label: SelectorParam; path: string; withCounter?: boolean }[] = [
   {
-    text: "store",
+    label: ($) => $.store,
     path: "/",
   },
   {
-    text: "cart",
+    label: ($) => $.cart,
     path: "/cart",
     withCounter: true,
   },
@@ -55,9 +58,9 @@ const Header = () => {
         <nav>
           <ul className="navbar navbar-nav">
             {links.map((link) => (
-              <li className="nav-item d-flex" key={link.text}>
+              <li className="nav-item d-flex" key={link.path}>
                 <Link to={link.path} className="nav-link">
-                  {t(link.text)}
+                  {t(link.label)}
                 </Link>
 
                 {link.withCounter && Object.keys(cart).length ? (
@@ -71,7 +74,7 @@ const Header = () => {
               </li>
             ))}
 
-            <Dropdown title={t("lang")}>
+            <Dropdown title={t(($) => $.lang)}>
               {languages.map((lang) => (
                 <li key={lang.lang}>
                   {/* Обработчик на кнопке, а не на <li>: пункт списка не

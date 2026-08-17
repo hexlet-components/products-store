@@ -77,7 +77,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
       <Search input={inputFilter} setInput={setSearchInput} />
 
       <div>
-        <Dropdown title={t("category")}>
+        <Dropdown title={t(($) => $.category)}>
           {categories.map((category: string) => (
             <li key={category}>
               {/* Обработчик на кнопке, а не на <li>: пункт списка не получает
@@ -96,7 +96,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
         <span>{categoryFilter}</span>
       </div>
 
-      <CheckBoxes title={t("brand")}>
+      <CheckBoxes title={t(($) => $.brand)}>
         {brands.map((brand) => (
           <CheckBoxItems
             key={brand}
@@ -107,7 +107,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
         ))}
       </CheckBoxes>
 
-      <CheckBoxes title={t("isInStock")}>
+      <CheckBoxes title={t(($) => $.isInStock)}>
         <div className="form-check">
           <input
             className="form-check-input"
@@ -119,7 +119,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
           />
 
           <label className="form-check-label" htmlFor="isInStock">
-            {t("isInStock")}
+            {t(($) => $.isInStock)}
           </label>
         </div>
       </CheckBoxes>
@@ -127,10 +127,10 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
       <Range
         maxPriceRange={maxPriceRange}
         minPriceRange={minPriceRange}
-        title={t("price")}
+        title={t(($) => $.price)}
         handleMinChange={(e: ChangeEvent<HTMLInputElement>) => setMinPrice(e.target.value)}
         handleMaxChange={(e: ChangeEvent<HTMLInputElement>) => setMaxPrice(e.target.value)}
-        text={t("fromTo")}
+        text={t(($) => $.fromTo)}
         minValue={minPrice}
         maxValue={maxPrice}
       />
