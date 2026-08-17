@@ -4,7 +4,7 @@
 // image URLs to local paths, and writes a self-contained seed so the app no
 // longer depends on dummyjson.com at runtime.
 //
-// Usage: node server/scripts/seed.mjs
+// Usage: node server/scripts/seed.js
 
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";

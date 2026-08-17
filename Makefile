@@ -8,7 +8,7 @@ build:
 	pnpm run build
 
 seed:
-	node server/scripts/seed.mjs
+	node server/scripts/seed.js
 
 preview:
 	pnpm run preview
