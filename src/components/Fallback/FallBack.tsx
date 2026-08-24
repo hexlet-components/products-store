@@ -1,11 +1,12 @@
-import React from 'react';
+import { Loader, VisuallyHidden } from "@mantine/core";
 
+// `output` вместо `<div role="status">`: семантический тег несёт ту же роль
+// для скринридеров.
 const FallBack = () => (
-  <div className='text-center position-relative' style={{ top: '50%' }}>
-    <div className="spinner-grow" role="status">
-        <span className="visually-hidden">Loading...</span>
-    </div>
-  </div>
+  <output style={{ display: "block" }}>
+    <Loader />
+    <VisuallyHidden>Loading...</VisuallyHidden>
+  </output>
 );
 
 export default FallBack;

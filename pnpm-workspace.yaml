@@ -1,0 +1,5 @@
+# @swc/core приезжает зависимостью i18next-cli. Его postinstall только проверяет
+# нативный биндинг, а pnpm 11 требует решения по каждому build-скрипту явно:
+# без этой записи install падает ERR_PNPM_IGNORED_BUILDS.
+allowBuilds:
+  "@swc/core": false

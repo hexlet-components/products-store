@@ -1,20 +1,17 @@
-import React from 'react';
+import { Anchor, Container, Text } from "@mantine/core";
 
 const Footer = () => (
-        <footer className='py-4 text-bg-dark'>
-            <div className='container b-share text-center'>
-                {'created by '}
-                <a
-                    href='https://ru.hexlet.io'
-                    target='_blank'
-                    rel='noreferrer'
-                    className='text-decoration-none'
-                >
-                    Hexlet
-                </a>
-                <p>version 2</p>
-            </div>
-        </footer>
+  <footer style={{ background: "var(--mantine-color-dark-8)", padding: "1.5rem 0" }}>
+    <Container size="xl" ta="center" c="white">
+      {"created by "}
+
+      <Anchor href="https://ru.hexlet.io" target="_blank" rel="noreferrer" underline="never">
+        Hexlet
+      </Anchor>
+
+      <Text>version 2</Text>
+    </Container>
+  </footer>
 );
 
 export default Footer;

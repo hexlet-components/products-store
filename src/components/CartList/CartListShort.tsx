@@ -1,35 +1,29 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { ProductsT } from '../../types/product';
-import { CartT } from '../../types/cart';
-import { getPriceWithDiscount } from '../../utilities';
+import type { FC } from "react";
+import { Group, Paper, Text } from "@mantine/core";
+import type { CartT } from "../../types/cart";
+import type { ProductsT } from "../../types/product";
+import { getPriceWithDiscount } from "../../utilities";
 
 interface CartListProps {
-    products: ProductsT;
-    cart: CartT;
+  products: ProductsT;
+  cart: CartT;
 }
 
-const listStyles = { border: '1px solid gray' };
-
 const CartListShort: FC<CartListProps> = ({ products, cart }) => {
-  const getPrice = (price: number, disacount: number, count: number) => (getPriceWithDiscount(price, disacount) * count)
-    .toFixed(2);
+  const getPrice = (price: number, disacount: number, count: number) =>
+    (getPriceWithDiscount(price, disacount) * count).toFixed(2);
 
   return (
-    <ul className='ps-2 pe-2'>
-        {
-            products.map((p) => (
-                <li
-                    key={p.id}
-                    className='mt-2 p-2 ps-4 pe-4 d-flex justify-content-between align-items-center'
-                    style={listStyles}
-                >
-                    <h6 className='me-3' style={{ marginBottom: '0' }}>{p.title}</h6>
-                    <span>{cart[p.id].quantity}</span>
-                    {getPrice(p.price, p.discountPercentage, cart[p.id].quantity)}$
-                </li>
-            ))
-        }
+    <ul style={{ listStyle: "none", margin: 0, padding: "0.5rem" }}>
+      {products.map((p) => (
+        <Paper component="li" key={p.id} withBorder mt="xs" px="lg" py="sm">
+          <Group justify="space-between" align="center">
+            <Text fw={600}>{p.title}</Text>
+            <Text>{cart[p.id].quantity}</Text>
+            <Text>{getPrice(p.price, p.discountPercentage, cart[p.id].quantity)}$</Text>
+          </Group>
+        </Paper>
+      ))}
     </ul>
   );
 };

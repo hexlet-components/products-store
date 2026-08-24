@@ -1,30 +1,18 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import FallBack from '../../components/Fallback/FallBack';
-import Store from '../../containers/Store/Store';
-import { startFetchStore } from '../../store/reducers/store';
-import { selectStoreIsLoading } from '../../store/selectors';
-import { FetchingProcess } from '../../types/store';
-import NotFoundPage from '../NotFoundPage';
+import FallBack from "../../components/Fallback/FallBack";
+import Store from "../../containers/Store/Store";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
+import { useProducts } from "../../services/queries";
+import { useSkip } from "../../store/pagination";
 
 const StorePage = () => {
-  const loadingProcess = useSelector(selectStoreIsLoading);
-  const dispatch = useDispatch();
+  const skip = useSkip();
+  const { data, isPending, isError } = useProducts(skip);
 
-  useEffect(() => {
-    dispatch(startFetchStore());
-  }, [dispatch]);
-
-  switch (loadingProcess) {
-    case FetchingProcess.loaded:
-      return <Store />;
-    case FetchingProcess.loading:
-      return <FallBack />;
-    case FetchingProcess.failed:
-      return <NotFoundPage />;
-    default:
-      return <FallBack />;
+  if (isError) {
+    return <NotFoundPage />;
   }
+
+  return isPending || !data ? <FallBack /> : <Store store={data} />;
 };
 
 export default StorePage;

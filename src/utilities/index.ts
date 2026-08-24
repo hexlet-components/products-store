@@ -1,5 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-import { ProductsT } from '../types/product';
+import type { ProductsT } from "../types/product";
 
 export const filterProducts = (
   filterFrom: ProductsT,
@@ -23,4 +22,5 @@ export const filterProducts = (
   return filtered;
 };
 
-export const getPriceWithDiscount = (price: number, discount: number) => (price * ((100 - discount) / 100));
+export const getPriceWithDiscount = (price: number, discount: number) =>
+  price * ((100 - discount) / 100);

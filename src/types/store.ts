@@ -1,6 +1,4 @@
-/* eslint-disable no-shadow */
-
-import { ProductsT } from './product';
+import type { ProductsT } from "./product";
 
 export enum FetchingProcess {
   initial,
@@ -10,11 +8,9 @@ export enum FetchingProcess {
 }
 
 export type StoreT = {
-    loadingProcess: FetchingProcess,
-    products: ProductsT,
-    limit: number,
-    skip: number,
-    total: number,
-    currentPage: number,
-    error: unknown,
+  isLoading: boolean;
+  products: ProductsT;
+  limit: number;
+  skip: number;
+  total: number;
 };

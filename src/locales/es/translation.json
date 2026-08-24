@@ -1,0 +1,29 @@
+{
+  "add": "Agregar al carrito",
+  "allCategories": "Todas las categorías",
+  "brand": "Marca",
+  "buy": "Realizar pedido",
+  "cart": "Carrito",
+  "category": "Categoría",
+  "clear": "Vaciar carrito",
+  "close": "Cerrar",
+  "continue": "Seguir comprando",
+  "delete from cart": "Eliminar",
+  "fromTo": "De - A:",
+  "isInStock": "En stock",
+  "lang": "Idioma",
+  "next": "Siguiente",
+  "notFound": {
+    "header": "Error de carga de datos",
+    "message": "Algo salió mal"
+  },
+  "Nothing found": "¡No se encontró nada!",
+  "orderPlaced": "Pedido realizado con éxito",
+  "prev": "Anterior",
+  "price": "Precio",
+  "quantity": "uds.",
+  "rating": "Calificación",
+  "search": "Buscar",
+  "store": "Tienda",
+  "total": "Total"
+}

@@ -1,25 +1,33 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { getPriceWithDiscount } from '../../utilities';
-import './styles.css';
+import type React from "react";
+import type { FC } from "react";
+import { Button, Card, Group, Image, Text } from "@mantine/core";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { getPriceWithDiscount } from "../../utilities";
 
 interface ProductCardProps {
-  id: number,
-  description: string,
-  title: string,
-  price: number,
+  id: number;
+  description: string;
+  title: string;
+  price: number;
   thumbnail: string;
-  discountPercentage: number,
+  discountPercentage: number;
   stock: number;
   addToCart: () => void;
 }
 
 const descriptionLength = 201;
-const dots = '...';
+const dots = "...";
 
 const ProductCard: FC<ProductCardProps> = ({
-  id, thumbnail, description, title, price, discountPercentage, stock, addToCart,
+  id,
+  thumbnail,
+  description,
+  title,
+  price,
+  discountPercentage,
+  stock,
+  addToCart,
 }) => {
   const { t } = useTranslation();
 
@@ -28,32 +36,41 @@ const ProductCard: FC<ProductCardProps> = ({
     addToCart();
   };
 
-  const cuttedDescription = description.length >= descriptionLength - 1
-    ? `${description.substring(0, descriptionLength - dots.length)}${dots}` : description;
+  const cuttedDescription =
+    description.length >= descriptionLength - 1
+      ? `${description.substring(0, descriptionLength - dots.length)}${dots}`
+      : description;
 
   return (
-    <div className='col-12 col-lg-6 col-xl-4 mb-4'>
-        <div className='card text-muted'>
-          <Link to={`/products/${id}`} className='text-decoration-none'>
-            <img className='card-img-top object-cover' src={thumbnail} alt={title} width='180' height='180' />
-          </Link>
-          <div className='card-body' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <h6 className='card-title'>{title}</h6>
-              <div className='card-text lh-1' style={{ maxHeight: '100px' }}>{cuttedDescription}</div>
-              <div className='d-flex justify-content-between align-items-center mt-3'>
-                <span className='text-decoration-line-through'>{price}$</span>
-                <span className='text-danger'>{getPriceWithDiscount(price, discountPercentage).toFixed(2)}$</span>
-                <span>{stock}</span>
-                {stock
-                  ? <button className='btn btn-primary' onClick={handleClick}>
-                    {t('add')}
-                  </button>
-                  : <></>
-                }
-              </div>
-          </div>
-        </div>
-    </div>
+    <Link to={`/products/${id}`} style={{ textDecoration: "none", color: "inherit" }}>
+      <Card withBorder radius="md" h="100%" mah={415}>
+        <Card.Section>
+          <Image src={thumbnail} alt={title} h={180} fit="cover" />
+        </Card.Section>
+
+        <Text fw={600} mt="md">
+          {title}
+        </Text>
+
+        <Text size="sm" c="dimmed" lineClamp={4}>
+          {cuttedDescription}
+        </Text>
+
+        <Group justify="space-between" align="center" mt="md">
+          <Text td="line-through">{price}$</Text>
+
+          <Text c="red">{getPriceWithDiscount(price, discountPercentage).toFixed(2)}$</Text>
+
+          <Text>{stock}</Text>
+
+          {stock ? (
+            <Button type="button" onClick={handleClick}>
+              {t(($) => $.add)}
+            </Button>
+          ) : null}
+        </Group>
+      </Card>
+    </Link>
   );
 };
 

@@ -1,34 +1,32 @@
-import React, { FC, Fragment, useState } from 'react';
+import { type FC, Fragment, useState } from "react";
+import { Grid, Group, Image, UnstyledButton } from "@mantine/core";
 
 interface ProductPhotosProps {
-    images: string[];
-    thumbnail: string;
+  images: string[];
+  thumbnail: string;
 }
 
-const imageClass = 'rounded-3 main-img';
-
 const ProductPhotos: FC<ProductPhotosProps> = ({ images, thumbnail }) => {
+  // Превью переключают основную картинку: без этого они были просто рядом
+  // лежащими изображениями.
   const [selectedPhoto, setSelectedPhoto] = useState(thumbnail);
 
   return (
-    <div className='d-flex flex-column align-items-center product-info-wrapper gap-3'>
-        <div className='mb-3 main-img-wrapper'>
-            <img src={selectedPhoto} alt='card 1' className={imageClass} />
-        </div>
-        <div className='d-flex gap-2 align-items-center' >
-            {
-                images.map((image, ind) => (ind < images.length - 1 ? (
-                    <div key={image} className='img-preview-wrapper' role='button' onClick={() => setSelectedPhoto(image)}>
-                        <img
-                            src={image}
-                            alt={`card ${ind}`}
-                            className='main-img rounded-3'
-                        />
-                    </div>
-                ) : <Fragment key={ind}></Fragment>))
-            }
-        </div>
-    </div>
+    <Grid.Col span={{ base: 12, md: 6 }}>
+      <Image src={selectedPhoto} alt="card 1" radius="md" mb="md" mah={400} fit="contain" />
+
+      <Group gap="xs">
+        {images.map((image, ind) =>
+          ind < images.length - 1 ? (
+            <UnstyledButton key={image} type="button" onClick={() => setSelectedPhoto(image)}>
+              <Image src={image} alt={`card ${ind}`} radius="md" w={120} h={65} fit="contain" />
+            </UnstyledButton>
+          ) : (
+            <Fragment key={ind} />
+          ),
+        )}
+      </Group>
+    </Grid.Col>
   );
 };
 

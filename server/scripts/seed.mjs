@@ -6,17 +6,16 @@
 //
 // Usage: node server/scripts/seed.mjs
 
-import { mkdir, writeFile } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const SOURCE_URL =
-  'https://raw.githubusercontent.com/Ovi/DummyJSON/master/database/products.json';
+const SOURCE_URL = "https://raw.githubusercontent.com/Ovi/DummyJSON/master/database/products.json";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot = path.resolve(__dirname, '..', '..');
-const publicDir = path.join(repoRoot, 'public');
-const dataFile = path.join(repoRoot, 'server', 'data', 'products.json');
+const repoRoot = path.resolve(__dirname, "..", "..");
+const publicDir = path.join(repoRoot, "public");
+const dataFile = path.join(repoRoot, "server", "data", "products.json");
 
 const CONCURRENCY = 16;
 
@@ -59,9 +58,7 @@ const runPool = async (items, worker) => {
     }
   };
 
-  await Promise.all(
-    Array.from({ length: Math.min(CONCURRENCY, total) }, () => next()),
-  );
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, total) }, () => next()));
 };
 
 const main = async () => {
