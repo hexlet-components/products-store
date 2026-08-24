@@ -1,17 +1,37 @@
 # Фронтенд (`src/`)
 
-React 19 + Redux Toolkit + **redux-saga** (thunk отключён явно в `src/store/index.ts`).
+React 19 + Mantine + TanStack Query + zustand.
 
-Поток данных — строго через саги, компоненты не делают fetch напрямую (единственное исключение — POST заказа в `src/containers/Cart/Cart.tsx`):
+Поток данных разделён по природе состояния:
 
-1. Компонент диспатчит «стартовый» экшен (`startFetchStore`, `startFetchProduct`, `addToCart`, ...).
-2. Редьюсер на этом экшене только выставляет `isLoading` / ничего не меняет (`addToCart: (state) => state`).
-3. Сага (`src/store/sagas/*`) слушает тот же экшен, вызывает сервис из `src/services/*` и диспатчит экшен-результат (`updateStoreState`, `addProduct`, `updateCart`).
+1. **Данные магазина** живут в кеше запросов. Хуки — `src/services/queries.ts`
+   (`useProducts(skip)`, `useProduct(id)`), они вызывают сервисы из
+   `src/services/*`. Компоненты страниц показывают `FallBack`, пока запрос в
+   `isPending`.
+2. **Клиентское состояние** живёт в zustand: корзина (`src/store/cart.ts`) и
+   смещение страницы (`src/store/pagination.ts`).
 
-Корзина живёт в `sessionStorage`: `cartSlice` инициализируется из `getCartFromSessionStorage()`, а `cartSaga` при каждом изменении сначала пишет в storage (`updateCartSessionStorage`), затем кладёт новый объект в стор через `updateCart`. Форма корзины — словарь `{ [productId]: { quantity, product } }`.
+Единственный fetch вне этого потока — POST заказа в
+`src/containers/Cart/Cart.tsx`.
 
-Пагинация серверная и «слепая»: `nextPage`/`prevPage` меняют только `skip` в сторе, а `storeSaga` слушает эти же экшены и перезапрашивает страницу. Фильтры (`src/containers/SideBar/SideBar.tsx` + `filterProducts` в `src/utilities/index.ts`) работают **только по текущей странице**, уже лежащей в сторе, — это не серверная фильтрация.
+Корзина живёт в `sessionStorage`: стор инициализируется из
+`getCartFromSessionStorage()`, а каждое изменение сначала пишет в storage
+(`updateCartSessionStorage`) и только потом обновляет состояние. Форма корзины —
+словарь `{ [productId]: { quantity, product } }`. Количество упирается в `stock`.
 
-Селекторы — в `src/store/selectors/index.js` (без reselect, часть из них вычисляет производные значения на каждый вызов).
+Пагинация серверная и «слепая»: `nextPage`/`prevPage` меняют только `skip`, а
+ключ запроса собран из него, поэтому страница перезапрашивается сама. Границы
+проверяются в `Store.tsx` по `limit` и `total` из ответа. Фильтры
+(`src/containers/SideBar/SideBar.tsx` плюс `filterProducts` в
+`src/utilities/index.ts`) работают **только по текущей странице** — это не
+серверная фильтрация.
 
-`SideBar` передаёт результат фильтрации наверх через колбэк `changeFilteredProducts`, который в `Store.tsx` обёрнут в `useCallback` — это защита от бесконечного цикла ре-рендеров (был реальный баг, см. коммит `3149599`). Не убирай мемоизацию.
+`SideBar` передаёт результат фильтрации наверх через колбэк
+`changeFilteredProducts`, который в `Store.tsx` обёрнут в `useCallback` — это
+защита от бесконечного цикла ре-рендеров (был реальный баг, см. коммит
+`3149599`). Не убирай мемоизацию.
+
+Выпадающий список (`src/components/Dropdown`) и модальное окно
+(`src/components/Modal`) собраны руками, а не взяты из Mantine: у `Menu` и
+`Modal` своя логика закрытия по Escape и клику вне, и подмена изменила бы
+поведение приложения, по которому написаны тест-кейсы проекта.

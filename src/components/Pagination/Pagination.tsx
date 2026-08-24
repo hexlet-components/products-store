@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { Button, Group } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
 interface PaginationProps {
@@ -12,23 +13,17 @@ const Pagination: FC<PaginationProps> = ({ handleNext, handlePrev, styles }) => 
 
   return (
     <nav className={styles}>
-      <ul className="pagination justify-content-center">
-        {/* Кнопка, а не ссылка на "#": страница не меняет адрес, переключение
-            делает обработчик. Раньше onClick висел на <li>, поэтому с
-            клавиатуры пагинация была недоступна вовсе: у списка нет фокуса и
-            нет обработчика клавиш. */}
-        <li className="page-item">
-          <button className="page-link" type="button" onClick={handlePrev}>
-            {t(($) => $.prev)}
-          </button>
-        </li>
+      {/* Кнопки, а не ссылки на "#": страница не меняет адрес, переключение
+          делает обработчик. */}
+      <Group justify="center" gap="xs">
+        <Button variant="default" type="button" onClick={handlePrev}>
+          {t(($) => $.prev)}
+        </Button>
 
-        <li className="page-item">
-          <button className="page-link" type="button" onClick={handleNext}>
-            {t(($) => $.next)}
-          </button>
-        </li>
-      </ul>
+        <Button variant="default" type="button" onClick={handleNext}>
+          {t(($) => $.next)}
+        </Button>
+      </Group>
     </nav>
   );
 };

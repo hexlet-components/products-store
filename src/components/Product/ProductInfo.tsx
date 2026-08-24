@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { Button, Divider, Grid, Group, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { getPriceWithDiscount } from "../../utilities";
 
@@ -25,39 +26,43 @@ const ProductInfo: FC<ProductInfoProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="col-md-6">
+    <Grid.Col span={{ base: 12, md: 6 }}>
       {/* Не ссылка: переход по категории не реализован, а href="#" уводит
           в начало страницы и объявляет скринридеру ссылку в никуда. */}
-      <p className="mb-4 d-block">#{category}</p>
+      <Text mb="md">#{category}</Text>
 
-      <h1 className="mb-1">{title}</h1>
+      <Title order={1} mb="xs">
+        {title}
+      </Title>
 
-      <div className="mb-4">
+      <Text mb="md">
         {t(($) => $.rating)}: {rating} &#9733;
-      </div>
+      </Text>
 
-      <i className="bi bi-star-fill" />
+      <Group gap="xs" align="baseline">
+        <Text size="xl" td="line-through">
+          {price}$
+        </Text>
 
-      <div className="fs-4">
-        <span className="me-3 text-decoration-line-through">{price}$</span>
-
-        <span className="fw-bold text-dark">
+        <Text size="xl" fw={700}>
           {getPriceWithDiscount(price, discountPercentage).toFixed(2)}$
-        </span>
+        </Text>
 
-        <span>
-          <small className="fs-6 ms-2 text-danger">{discountPercentage}% Off</small>
-        </span>
-      </div>
+        <Text size="sm" c="red">
+          {discountPercentage}% Off
+        </Text>
+      </Group>
 
-      <hr className="my-6" />
+      <Divider my="lg" />
 
-      <span className="me-4">{stock}</span>
+      <Group gap="lg">
+        <Text>{stock}</Text>
 
-      <button type="button" className="btn btn-primary" onClick={addToCart}>
-        {t(($) => $.add)}
-      </button>
-    </div>
+        <Button type="button" onClick={addToCart}>
+          {t(($) => $.add)}
+        </Button>
+      </Group>
+    </Grid.Col>
   );
 };
 

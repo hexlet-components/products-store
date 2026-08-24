@@ -1,32 +1,45 @@
 import type React from "react";
 import { type FC, useState } from "react";
+import { Paper, UnstyledButton } from "@mantine/core";
 
 interface DropdownProps {
   title: string;
   children: React.ReactNode | React.ReactNode[];
 }
 
+// Список собран руками, а не на Menu из Mantine: у Menu своя логика закрытия по
+// клику вне и по Escape, и подмена изменила бы поведение приложения. Здесь
+// меняется только оформление.
 const Dropdown: FC<DropdownProps> = ({ title, children }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleDropDown = () => setIsExpanded((p) => !p);
+
   return (
-    // Обработчик переехал с обёртки на саму кнопку. Раньше onClick висел на
-    // <div>, а роль кнопки изображал <span role="button">: с клавиатуры
-    // выпадающий список не открывался, потому что фокус на div не попадает и
-    // обработчика клавиш не было.
-    <div className={`nav-item dropdown ${isExpanded ? "show" : ""}`}>
-      <button
-        className="nav-link dropdown-toggle"
+    <div style={{ position: "relative" }}>
+      <UnstyledButton
         type="button"
-        data-bs-toggle="dropdown"
         aria-expanded={isExpanded}
         onClick={toggleDropDown}
+        px="sm"
+        py="xs"
       >
         {title}
-      </button>
+      </UnstyledButton>
 
-      <ul className={`dropdown-menu ${isExpanded ? "show" : ""}`}>{children}</ul>
+      {isExpanded ? (
+        <Paper
+          component="ul"
+          withBorder
+          shadow="sm"
+          p="xs"
+          style={{ position: "absolute", zIndex: 10, listStyle: "none", minWidth: 180 }}
+        >
+          {children}
+        </Paper>
+      ) : (
+        <ul style={{ display: "none" }}>{children}</ul>
+      )}
     </div>
   );
 };

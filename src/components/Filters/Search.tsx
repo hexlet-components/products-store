@@ -1,5 +1,6 @@
 import type React from "react";
 import type { Dispatch, FC, SetStateAction } from "react";
+import { TextInput } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
 interface SearchProps {
@@ -13,8 +14,8 @@ const Search: FC<SearchProps> = ({ input, setInput }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
 
   return (
-    <input
-      className="mb-3"
+    <TextInput
+      mb="md"
       type="text"
       value={input}
       placeholder={t(($) => $.search) || ""}

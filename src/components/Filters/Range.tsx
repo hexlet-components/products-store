@@ -1,5 +1,6 @@
 import type React from "react";
 import type { FC } from "react";
+import { Group, Stack, Text, TextInput } from "@mantine/core";
 
 interface RangeProps {
   minPriceRange: string;
@@ -23,33 +24,33 @@ const Range: FC<RangeProps> = ({
   maxValue,
   text,
 }) => (
-  <div className="mb-5">
-    <label htmlFor="priceRange" className="form-label h6">
+  <Stack gap="xs" mb="xl">
+    <Text component="label" htmlFor="priceRange" fw={600}>
       {title}
-    </label>
+    </Text>
 
-    <div className="input-group">
-      <span className="input-group-text">{text}</span>
+    <Group gap="xs" wrap="nowrap">
+      <Text size="sm" c="dimmed">
+        {text}
+      </Text>
 
-      <input
+      <TextInput
         type="number"
         min={0}
-        className="form-control"
         value={minValue}
         placeholder={minPriceRange}
         onChange={handleMinChange}
       />
 
-      <input
+      <TextInput
         type="number"
-        className="form-control"
         value={maxValue}
         placeholder={maxPriceRange}
         max={maxPriceRange}
         onChange={handleMaxChange}
       />
-    </div>
-  </div>
+    </Group>
+  </Stack>
 );
 
 export default Range;

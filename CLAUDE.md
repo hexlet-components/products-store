@@ -26,7 +26,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Контракт API
 
-`/api/products` намеренно повторяет формат ответа DummyJSON (`{ products, total, skip, limit }`, `limit=0` = «без лимита») — фронтовые типы (`src/types/dummyStoreResponse.ts`) завязаны на эту форму. Меняешь формат на сервере — правь типы и саги на фронте.
+`/api/products` намеренно повторяет формат ответа DummyJSON (`{ products, total, skip, limit }`, `limit=0` = «без лимита») — фронтовые типы (`src/types/dummyStoreResponse.ts`) завязаны на эту форму. Меняешь формат на сервере — правь типы и хуки запросов на фронте (`src/services/queries.ts`).
 
 ## Намеренные баги
 

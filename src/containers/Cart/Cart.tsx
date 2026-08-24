@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { Button, Group, Stack, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Container from "../../components/Base/Container";
 import PageContent from "../../components/Base/PageContent";
@@ -8,21 +8,20 @@ import CartList from "../../components/CartList/CartList";
 import CartListShort from "../../components/CartList/CartListShort";
 import Modal from "../../components/Modal/Modal";
 import { API_BASE } from "../../services/apiConfig";
-import { clearCart } from "../../store/reducers/cart";
-import { selectCart, selectCartProducts } from "../../store/selectors";
+import { useCart, useClearCart } from "../../store/cart";
 import type { CartT } from "../../types/cart";
 import type { ProductsT, ProductT } from "../../types/product";
 import { getPriceWithDiscount } from "../../utilities";
 
 const Cart = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const products: ProductsT = useSelector(selectCartProducts);
-  const cart: CartT = useSelector(selectCart);
+  const cart: CartT = useCart();
+  const clearCart = useClearCart();
+  const products: ProductsT = Object.values(cart).map((p) => p.product);
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClearCart = () => dispatch(clearCart());
+  const handleClearCart = () => clearCart();
 
   const getTotalPrice = () =>
     products.reduce(
@@ -68,47 +67,42 @@ const Cart = () => {
       <Modal isOpen={isOpen} title={t(($) => $.orderPlaced)} closeModal={handleClick}>
         <CartListShort products={products} cart={cart} />
 
-        <span className="h5 ps-2">
+        <Text fw={600} size="lg" p="xs">
           {t(($) => $.total)}: {getTotalPrice().toFixed(2)} $
-        </span>
+        </Text>
       </Modal>
 
-      <section className="pb-4 mb-5 pt-5">
+      <section style={{ padding: "2rem 0" }}>
         <Container>
-          <div className="d-flex p-2 align-items-center justify-content-around">
-            <div>
-              <button type="button" onClick={handleClearCart} className="btn btn-danger me-2">
+          <Group justify="space-around" align="center" p="xs">
+            <Group gap="xs">
+              <Button type="button" color="red" onClick={handleClearCart}>
                 {t(($) => $.clear)}
-              </button>
+              </Button>
 
-              <Link to="/" className="btn btn-secondary">
+              <Button component={Link} to="/" variant="default">
                 {t(($) => $.continue)}
-              </Link>
-            </div>
+              </Button>
+            </Group>
 
-            <span className="h5">
+            <Text fw={600} size="lg">
               {t(($) => $.total)}: {getTotalPrice().toFixed(2)} $
-            </span>
-          </div>
+            </Text>
+          </Group>
         </Container>
       </section>
 
-      <section className="pb-4 mb-5 pt-5">
+      <section style={{ padding: "2rem 0" }}>
         <Container>
-          <div className="row justify-content-center">
+          <Stack align="center">
             {Object.keys(cart).length ? (
-              <button
-                type="button"
-                className="btn btn-success"
-                style={{ width: "20%" }}
-                onClick={handleClick}
-              >
+              <Button type="button" color="green" w="20%" onClick={handleClick}>
                 {t(($) => $.buy)}
-              </button>
+              </Button>
             ) : null}
 
             <CartList products={products} cart={cart} />
-          </div>
+          </Stack>
         </Container>
       </section>
     </PageContent>

@@ -1,67 +1,78 @@
-import { useCallback, useState } from "react";
+import { type FC, useCallback, useMemo, useState } from "react";
+import { Grid, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import Container from "../../components/Base/Container";
 import PageContent from "../../components/Base/PageContent";
 import Pagination from "../../components/Pagination/Pagination";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import { addToCart } from "../../store/reducers/cart";
-import { nextPage, prevPage } from "../../store/reducers/store";
-import { selectLimit, selectSkip, selectStore, selectTotal } from "../../store/selectors";
+import { useAddToCart } from "../../store/cart";
+import { useNextPage, usePrevPage, useSkip } from "../../store/pagination";
+import type { DummyStoreResponseT } from "../../types/dummyStoreResponse";
 import type { ProductsT, ProductT } from "../../types/product";
 import SideBar from "../SideBar/SideBar";
 
-const Store = () => {
+interface StoreProps {
+  store: DummyStoreResponseT;
+}
+
+const Store: FC<StoreProps> = ({ store }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
-  const products = useSelector(selectStore);
-  const skip = useSelector(selectSkip);
-  const limit = useSelector(selectLimit);
-  const total = useSelector(selectTotal);
+  const { products, limit, total } = store;
+  const skip = useSkip();
+  const nextPage = useNextPage();
+  const prevPage = usePrevPage();
+  const addToCart = useAddToCart();
 
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState<ProductsT>(products);
 
-  const handleNext = () => (limit + skip < total ? dispatch(nextPage()) : null);
-  const handlePrev = () => (skip - limit >= 0 ? dispatch(prevPage()) : null);
-
-  const addProductToCart = (product: ProductT) => dispatch(addToCart(product));
+  const handleNext = () => (limit + skip < total ? nextPage(limit) : null);
+  const handlePrev = () => (skip - limit >= 0 ? prevPage(limit) : null);
 
   const changeFilteredProducts = useCallback(
     (filtered: ProductsT) => setFilteredProducts(filtered),
     [],
   );
 
+  const memoProducts = useMemo(() => products, [products]);
+
   return (
     <PageContent>
-      <Container styles="row">
-        <SideBar products={products} changeFilteredProducts={changeFilteredProducts} />
+      <Container>
+        <Grid pt="xl" gutter="xl">
+          <Grid.Col span={{ base: 12, md: 3 }}>
+            <SideBar products={memoProducts} changeFilteredProducts={changeFilteredProducts} />
+          </Grid.Col>
 
-        <div className="col pt-5">
-          <Pagination handleNext={handleNext} handlePrev={handlePrev} />
+          <Grid.Col span={{ base: 12, md: 9 }}>
+            <Pagination handleNext={handleNext} handlePrev={handlePrev} />
 
-          <div className="row g-4 row-cols-xl-3 row-cols-lg-2 row-cols-1 row-cols-md-1 mb-4">
-            {filteredProducts.length ? (
-              filteredProducts.map((p: ProductT) => (
-                <ProductCard
-                  key={p.id}
-                  id={p.id}
-                  thumbnail={p.thumbnail}
-                  price={p.price}
-                  title={p.title}
-                  description={p.description}
-                  discountPercentage={p.discountPercentage}
-                  stock={p.stock}
-                  addToCart={() => addProductToCart(p)}
-                />
-              ))
-            ) : (
-              <span>{t(($) => $["Nothing found"])}</span>
-            )}
-          </div>
+            <Grid mt="md" mb="md" gutter="md">
+              {filteredProducts.length ? (
+                filteredProducts.map((p: ProductT) => (
+                  <Grid.Col span={{ base: 12, md: 6, xl: 4 }} key={p.id}>
+                    <ProductCard
+                      id={p.id}
+                      thumbnail={p.thumbnail}
+                      price={p.price}
+                      title={p.title}
+                      description={p.description}
+                      discountPercentage={p.discountPercentage}
+                      stock={p.stock}
+                      addToCart={() => addToCart(p)}
+                    />
+                  </Grid.Col>
+                ))
+              ) : (
+                <Grid.Col span={12}>
+                  <Text>{t(($) => $["Nothing found"])}</Text>
+                </Grid.Col>
+              )}
+            </Grid>
 
-          <Pagination handleNext={handleNext} handlePrev={handlePrev} styles="mb-5" />
-        </div>
+            <Pagination handleNext={handleNext} handlePrev={handlePrev} />
+          </Grid.Col>
+        </Grid>
       </Container>
     </PageContent>
   );
