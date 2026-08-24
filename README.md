@@ -1,11 +1,23 @@
-Small store for QA.
+# products-store
+
+## Зачем это нужно
+
+Магазин-подопытный для курсов по тестированию: каталог, фильтры, корзина,
+оформление заказа.
+
+Нужен стенд, на котором есть что тестировать: несколько экранов, состояние
+между ними, обращения к API и оформление заказа с проверками. При этом он
+маленький настолько, что читается целиком.
+
+Собран как SPA плюс собственный API, поэтому работает автономно, без внешних
+сервисов.
 
 ## Prerequisites
 
 Make sure you have the following installed:
 
 - Unix (Linux, Macos)
-- Node.js (>= 24.x)
+- Node.js (>= 26.x)
 - npm
 - Make (build tool)
 - Git (version control system)
@@ -26,18 +38,19 @@ Start the development server:
 ```bash
 make start
 ```
-Open your browser and navigate to `http://localhost:3000`.
+Open your browser and navigate to `http://localhost:8080`.
 
-## Contributing
+`make start` runs both the front-end (Vite on `:8080`) and the internal API
+(Fastify on `:3001`); Vite proxies `/api` to it. In production a single Fastify
+process serves the built SPA, the product images and the `/api` endpoints.
 
-Contributions are welcome! Please follow our [contribution guidelines](CONTRIBUTING.md).
+The product catalogue and images are a self-contained snapshot under
+`server/data/products.json` and `public/product-images/`. To regenerate it run:
 
-## License
+```bash
+make seed
+```
 
-This project is licensed under the [MIT License](LICENSE).
-
----
-Happy coding!
 ---
 
 [![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/assets/master/images/hexlet_logo128.png)](https://hexlet.io/?utm_source=github&utm_medium=referral&utm_campaign=hexlet-components&utm_content=products-store)

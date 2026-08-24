@@ -1,34 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import Container from '../../components/Base/Container';
-import PageContent from '../../components/Base/PageContent';
-import { API_BASE } from '../../services/apiConfig';
-import { clearCart } from '../../store/reducers/cart';
-import { ProductsT, ProductT } from '../../types/product';
-import CartList from '../../components/CartList/CartList';
-import { selectCart, selectCartProducts } from '../../store/selectors';
-import { CartT } from '../../types/cart';
-import { getPriceWithDiscount } from '../../utilities';
-import Modal from '../../components/Modal/Modal';
-import CartListShort from '../../components/CartList/CartListShort';
+import { useEffect, useState } from "react";
+import { Button, Group, Stack, Text } from "@mantine/core";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import Container from "../../components/Base/Container";
+import PageContent from "../../components/Base/PageContent";
+import CartList from "../../components/CartList/CartList";
+import CartListShort from "../../components/CartList/CartListShort";
+import Modal from "../../components/Modal/Modal";
+import { API_BASE } from "../../services/apiConfig";
+import { useCart, useClearCart } from "../../store/cart";
+import type { CartT } from "../../types/cart";
+import type { ProductsT, ProductT } from "../../types/product";
+import { getPriceWithDiscount } from "../../utilities";
 
 const Cart = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const products: ProductsT = useSelector(selectCartProducts);
-  const cart: CartT = useSelector(selectCart);
+  const cart: CartT = useCart();
+  const clearCart = useClearCart();
+  const products: ProductsT = Object.values(cart).map((p) => p.product);
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClearCart = () => dispatch(clearCart());
+  const handleClearCart = () => clearCart();
 
-  const getTotalPrice = () => products
-    .reduce((acc: number, p: ProductT) => acc + (getPriceWithDiscount(p.price, p.discountPercentage) * cart[p.id].quantity), 0);
+  const getTotalPrice = () =>
+    products.reduce(
+      (acc: number, p: ProductT) =>
+        acc + getPriceWithDiscount(p.price, p.discountPercentage) * cart[p.id].quantity,
+      0,
+    );
 
   const handleClick = () => setIsOpen((prev) => !prev);
 
+  // Заказ создаётся один раз при открытии модалки: cart и total читаются в
+  // этот момент, и пересоздавать заказ на каждое их изменение не нужно.
   useEffect(() => {
     if (!isOpen) return;
 
@@ -43,8 +48,8 @@ const Cart = () => {
         };
 
         const response = await fetch(`${API_BASE}/orders`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(order),
         });
         await response.json();
@@ -54,39 +59,52 @@ const Cart = () => {
     };
 
     createOrder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   return (
     <PageContent>
-        <Modal isOpen={isOpen} title={t('orderPlaced')} closeModal={handleClick}>
-            <>
-                <CartListShort products={products} cart={cart} />
-                <span className='h5 ps-2'>{t('total')}: {getTotalPrice().toFixed(2)} $</span>
-            </>
-        </Modal>
-        <section className='pb-4 mb-5 pt-5'>
-            <Container>
-                <div className='d-flex p-2 align-items-center justify-content-around'>
-                    <div>
-                        <button onClick={handleClearCart} className='btn btn-danger me-2'>{t('clear')}</button>
-                        <Link to={'/'} className='btn btn-secondary'>{t('continue')}</Link>
-                    </div>
-                    <span className='h5'>{t('total')}: {getTotalPrice().toFixed(2)} $</span>
-                </div>
-            </Container>
-        </section>
-        <section className='pb-4 mb-5 pt-5'>
-            <Container>
-                <div className='row justify-content-center'>
-                    {
-                        Object.keys(cart).length
-                          ? <button className='btn btn-success' style={{ width: '20%' }} onClick={handleClick}>{t('buy')}</button>
-                          : <></>
-                    }
-                    <CartList products={products} cart={cart} />
-                </div>
-            </Container>
-        </section>
+      <Modal isOpen={isOpen} title={t(($) => $.orderPlaced)} closeModal={handleClick}>
+        <CartListShort products={products} cart={cart} />
+
+        <Text fw={600} size="lg" p="xs">
+          {t(($) => $.total)}: {getTotalPrice().toFixed(2)} $
+        </Text>
+      </Modal>
+
+      <section style={{ padding: "2rem 0" }}>
+        <Container>
+          <Group justify="space-around" align="center" p="xs">
+            <Group gap="xs">
+              <Button type="button" color="red" onClick={handleClearCart}>
+                {t(($) => $.clear)}
+              </Button>
+
+              <Button component={Link} to="/" variant="default">
+                {t(($) => $.continue)}
+              </Button>
+            </Group>
+
+            <Text fw={600} size="lg">
+              {t(($) => $.total)}: {getTotalPrice().toFixed(2)} $
+            </Text>
+          </Group>
+        </Container>
+      </section>
+
+      <section style={{ padding: "2rem 0" }}>
+        <Container>
+          <Stack align="center">
+            {Object.keys(cart).length ? (
+              <Button type="button" color="green" w="20%" onClick={handleClick}>
+                {t(($) => $.buy)}
+              </Button>
+            ) : null}
+
+            <CartList products={products} cart={cart} />
+          </Stack>
+        </Container>
+      </section>
     </PageContent>
   );
 };

@@ -1,6 +1,8 @@
-import { DummyStoreResponseT } from '../types/dummyStoreResponse';
-import { API_BASE } from './apiConfig';
+import type { DummyStoreResponseT } from "../types/dummyStoreResponse";
+import { API_BASE } from "./apiConfig";
 
+// Ошибка не глушится: по ней страница показывает сообщение о неудачной
+// загрузке. В версии v1 она проглатывалась, и приложение зависало на спиннере.
 const fetchStore = async (skip: number) => {
   const resp = await fetch(`${API_BASE}/products?skip=${skip}`);
   const data: DummyStoreResponseT = await resp.json();

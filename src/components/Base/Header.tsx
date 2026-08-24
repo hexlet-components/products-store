@@ -1,87 +1,113 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { selectCart, selectCartProductsCount } from '../../store/selectors';
-import Container from './Container';
-import Dropdown from '../Dropdown/Dropdown';
+import type { SelectorParam } from "i18next";
+import { Badge, Group, Title, UnstyledButton } from "@mantine/core";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import esFlag from "../../assets/flag-es.svg";
+import ruFlag from "../../assets/flag-ru.svg";
+import { useCart } from "../../store/cart";
+import Dropdown from "../Dropdown/Dropdown";
+import Container from "./Container";
 
-const links = [
+// Подпись ссылки это селектор, а не строка с ключом: иначе путь до текста не проверяет
+// компилятор, а extract не видит ключ в коде и вычищает его из переводов.
+const links: { label: SelectorParam; path: string; withCounter?: boolean }[] = [
   {
-    text: 'store',
-    path: '/',
-    reloadDocument: true,
+    label: ($) => $.store,
+    path: "/",
   },
   {
-    text: 'cart',
-    path: '/cart',
+    label: ($) => $.cart,
+    path: "/cart",
     withCounter: true,
   },
 ];
 
 const languages = [
   {
-    text: 'English',
-    lang: 'en',
+    text: "English",
+    lang: "en",
+    flag: "english",
   },
   {
-    text: 'Russian',
-    lang: 'ru',
+    text: "Russian",
+    lang: "ru",
+    flag: ruFlag,
   },
   {
-    text: 'Spanish',
-    lang: 'es',
+    text: "Spanish",
+    lang: "es",
+    flag: esFlag,
+  },
+  {
+    text: "Spanish",
+    lang: "es",
   },
 ];
-
-const cartLengthStyle = { height: '20px', width: '20px', fontSize: '12px' };
 
 const Header = () => {
   const { t, i18n } = useTranslation();
 
-  const cart = useSelector(selectCart);
-  const productsInCartCount = useSelector(selectCartProductsCount);
+  const cart = useCart();
+  const productsInCartCount = Object.values(cart).reduce((acc, p) => acc + p.quantity, 0);
 
-  const handleClick = (lang: string) => i18n.changeLanguage(lang);
+  const handleClick = (lang: string) => setTimeout(() => i18n.changeLanguage(lang), 1000);
 
   return (
-        <header className='navbar navbar-expand-lg navbar-light bg-light shadow'>
-            <Container styles='px-4 px-lg-5'>
-                <h1 className='navbar-brand'>
-                  <Link to='/' className='nav-link'>Hexlet Store</Link>
-                </h1>
-                <nav>
-                    <ul className='navbar navbar-nav'>
-                        {
-                          links.map((link) => (
-                            <li className='nav-item d-flex' key={link.text}>
-                              <Link reloadDocument={link.reloadDocument} to={link.path} className='nav-link'>{t(link.text)}</Link>
-                              {
-                                link.withCounter && Object.keys(cart).length
-                                  ? <span
-                                      className='bg-info rounded-circle d-flex align-items-center justify-content-center'
-                                      style={cartLengthStyle}
-                                    >
-                                      {productsInCartCount}
-                                    </span>
-                                  : <></>
-                              }
-                            </li>
-                          ))
-                        }
-                        <Dropdown title={t('lang')}>
-                          {
-                            languages.map((lang) => (
-                              <li className='dropdown-item' onClick={() => handleClick(lang.lang)} key={lang.lang}>
-                                {lang.text}
-                              </li>
-                            ))
-                          }
-                        </Dropdown>
-                    </ul>
-                </nav>
-            </Container>
-        </header>
+    <header
+      style={{
+        background: "var(--mantine-color-gray-0)",
+        boxShadow: "var(--mantine-shadow-sm)",
+        padding: "0.75rem 0",
+      }}
+    >
+      <Container>
+        <Group justify="space-between" wrap="wrap">
+          <Title order={1} size="h4">
+            Hexlet Store
+          </Title>
+
+          <nav>
+            <Group component="ul" gap="lg" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+              {links.map((link) => (
+                <Group component="li" gap="xs" key={link.path}>
+                  <Link to={link.path} style={{ color: "inherit", textDecoration: "none" }}>
+                    {t(link.label)}
+                  </Link>
+
+                  {link.withCounter && Object.keys(cart).length ? (
+                    <Badge circle color="cyan">
+                      {productsInCartCount}
+                    </Badge>
+                  ) : null}
+                </Group>
+              ))}
+
+              <Dropdown title={t(($) => $.lang)}>
+                {languages.map((lang) => (
+                  <li key={lang.lang}>
+                    {/* Обработчик на кнопке, а не на <li>: пункт списка не
+                        получает фокус, и с клавиатуры язык было не переключить. */}
+                    <UnstyledButton
+                      type="button"
+                      onClick={() => handleClick(lang.lang)}
+                      w="100%"
+                      px="xs"
+                      py={6}
+                    >
+                      <Group gap="xs">
+                        <img width="22" src={lang.flag} alt={lang.text} />
+
+                        <span>{lang.text}</span>
+                      </Group>
+                    </UnstyledButton>
+                  </li>
+                ))}
+              </Dropdown>
+            </Group>
+          </nav>
+        </Group>
+      </Container>
+    </header>
   );
 };
 

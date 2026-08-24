@@ -1,9 +1,11 @@
-import React, { FC, useEffect, Dispatch, SetStateAction } from 'react';
-import { useTranslation } from 'react-i18next';
+import type React from "react";
+import type { Dispatch, FC, SetStateAction } from "react";
+import { TextInput } from "@mantine/core";
+import { useTranslation } from "react-i18next";
 
 interface SearchProps {
-    input: string;
-    setInput: Dispatch<SetStateAction<string>>;
+  input: string;
+  setInput: Dispatch<SetStateAction<string>>;
 }
 
 const Search: FC<SearchProps> = ({ input, setInput }) => {
@@ -12,7 +14,13 @@ const Search: FC<SearchProps> = ({ input, setInput }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
 
   return (
-    <input className='mb-3 w-100' type='text' value={input} placeholder={t('search') || ''} onChange={handleChange}/>
+    <TextInput
+      mb="md"
+      type="text"
+      value={input}
+      placeholder={t(($) => $.search) || ""}
+      onChange={handleChange}
+    />
   );
 };
 

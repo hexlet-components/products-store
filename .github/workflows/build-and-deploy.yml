@@ -13,30 +13,38 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      # pnpm ставится до setup-node: тот с cache: pnpm ищет уже существующий
+      # бинарь, чтобы вычислить путь к store.
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm test
-      - run: npm run build
+          node-version: '26.x'
+          cache: pnpm
+      - run: make install
+      - run: make lint
+      # Типы проверяются в CI: под прежним конфигом от Create React App tsc
+      # падал на депрекейтах ещё до проверки кода, поэтому ошибки типов копились
+      # незамеченными.
+      - run: make typecheck
+      - run: make test
+      - run: make build
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
     steps:
-      - uses: actions/checkout@v5
-      - uses: docker/setup-buildx-action@v3
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@v4
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
@@ -44,4 +52,3 @@ jobs:
           cache-from: ghcr.io/${{ github.repository }}:${{ inputs.tag }}
           cache-to: type=inline
           tags: ghcr.io/${{ github.repository }}:${{ inputs.tag }}
-  

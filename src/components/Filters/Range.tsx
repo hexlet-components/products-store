@@ -1,15 +1,17 @@
-import React, { FC } from 'react';
+import type React from "react";
+import type { FC } from "react";
+import { Group, Stack, Text, TextInput } from "@mantine/core";
 
 interface RangeProps {
-    minPriceRange: string;
-    maxPriceRange: string;
-    title: string;
-    handleMinChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleMaxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    step?: number;
-    text: string;
-    minValue: string;
-    maxValue: string;
+  minPriceRange: string;
+  maxPriceRange: string;
+  title: string;
+  handleMinChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleMaxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  step?: number;
+  text: string;
+  minValue: string;
+  maxValue: string;
 }
 
 const Range: FC<RangeProps> = ({
@@ -22,28 +24,33 @@ const Range: FC<RangeProps> = ({
   maxValue,
   text,
 }) => (
-    <div className='mb-5'>
-        <label htmlFor='priceRange' className='form-label h6'>{title}</label>
-        <div className='input-group'>
-            <span className='input-group-text'>{text}</span>
-            <input
-                type='number'
-                min={0}
-                className='form-control'
-                value={minValue}
-                placeholder={minPriceRange}
-                onChange={handleMinChange}
-            />
-            <input
-                type='number'
-                className='form-control'
-                value={maxValue}
-                placeholder={maxPriceRange}
-                max={maxPriceRange}
-                onChange={handleMaxChange}
-            />
-        </div>
-    </div>
+  <Stack gap="xs" mb="xl">
+    <Text component="label" htmlFor="priceRange" fw={600}>
+      {title}
+    </Text>
+
+    <Group gap="xs" wrap="nowrap">
+      <Text size="sm" c="dimmed">
+        {text}
+      </Text>
+
+      <TextInput
+        type="number"
+        min={0}
+        value={minValue}
+        placeholder={minPriceRange}
+        onChange={handleMinChange}
+      />
+
+      <TextInput
+        type="number"
+        value={maxValue}
+        placeholder={maxPriceRange}
+        max={maxPriceRange}
+        onChange={handleMaxChange}
+      />
+    </Group>
+  </Stack>
 );
 
 export default Range;

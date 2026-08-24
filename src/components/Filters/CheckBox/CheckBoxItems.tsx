@@ -1,25 +1,19 @@
-import React, { FC } from 'react';
+import type { FC } from "react";
+import { Checkbox } from "@mantine/core";
 
 interface CheckBoxItemsProps {
-    item: string;
-    isChecked: boolean;
-    handleCheck: (item: string) => void;
+  item: string;
+  isChecked: boolean;
+  handleCheck: (item: string) => void;
 }
 
 const CheckBoxItems: FC<CheckBoxItemsProps> = ({ item, isChecked, handleCheck }) => (
-        <div className='form-check'>
-              <input
-                className='form-check-input'
-                type='checkbox'
-                value=''
-                id={`${item}-check`}
-                checked={isChecked}
-                onChange={() => handleCheck(item)}
-              />
-              <label className='form-check-label' htmlFor={`${item}-check`}>
-                {item}
-              </label>
-        </div>
+  <Checkbox
+    id={`${item}-check`}
+    label={item}
+    checked={isChecked}
+    onChange={() => handleCheck(item)}
+  />
 );
 
 export default CheckBoxItems;

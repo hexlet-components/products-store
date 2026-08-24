@@ -1,16 +1,20 @@
-import React from 'react';
-import Footer from './components/Base/Footer';
-import Header from './components/Base/Header';
-import AppRoutes from './routes/Index';
+import { MantineProvider } from "@mantine/core";
+import Footer from "./components/Base/Footer";
+import Header from "./components/Base/Header";
+import AppRoutes from "./routes/Index";
 
+// Провайдер живёт здесь, а не в точке входа: иначе тесты, рендерящие App,
+// падают на первом же компоненте Mantine.
 const App = () => (
-    <div className="App h-100 d-flex flex-column">
-        <Header />
-        <div className="flex-grow-1">
-            <AppRoutes />
-        </div>
-        <Footer />
+  <MantineProvider>
+    <div>
+      <Header />
+
+      <AppRoutes />
+
+      <Footer />
     </div>
+  </MantineProvider>
 );
 
 export default App;
