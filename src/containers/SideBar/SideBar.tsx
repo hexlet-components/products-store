@@ -1,12 +1,11 @@
-import { type ChangeEvent, type FC, useEffect, useState } from "react";
+import { type ChangeEvent, type FC, useEffect, useMemo, useState } from "react";
+import { Checkbox, Stack, Text, UnstyledButton } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import CheckBoxes from "../../components/Filters/CheckBox/CheckBoxes";
 import CheckBoxItems from "../../components/Filters/CheckBox/CheckBoxItems";
 import Range from "../../components/Filters/Range";
 import Search from "../../components/Filters/Search";
-import { selectBrands, selectCategories, selectMaxPrice } from "../../store/selectors";
 import type { ProductsT } from "../../types/product";
 import { filterProducts } from "../../utilities";
 
@@ -19,9 +18,12 @@ const minPriceRange = "0";
 
 const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
   const { t } = useTranslation();
-  const categories = useSelector(selectCategories);
-  const brands = useSelector(selectBrands);
-  const maxPriceRange = useSelector(selectMaxPrice);
+  // Наборы фильтров считаются из уже загруженных товаров: отдельного стора им
+  // не нужно. Значения повторяют прежние селекторы, включая maxPrice как сумму
+  // цен, а не максимум.
+  const categories = useMemo(() => [...new Set(products.map((p) => p.category))], [products]);
+  const brands = useMemo(() => [...new Set(products.map((p) => p.brand))], [products]);
+  const maxPriceRange = useMemo(() => products.reduce((acc, p) => acc + p.price, 0), [products]);
 
   const [categoryFilter, setCategoryFilter] = useState("");
   const [inputFilter, setSearchInput] = useState("");
@@ -73,7 +75,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
   const handleIsInStock = () => setIsInStock((p) => !p);
 
   return (
-    <div style={{ maxWidth: "25%" }} className="col border-end pt-5 me-4">
+    <Stack gap="xs">
       <Search input={inputFilter} setInput={setSearchInput} />
 
       <div>
@@ -82,18 +84,20 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
             <li key={category}>
               {/* Обработчик на кнопке, а не на <li>: пункт списка не получает
                   фокус, и с клавиатуры фильтр было не выбрать. */}
-              <button
-                className="dropdown-item"
+              <UnstyledButton
                 type="button"
                 onClick={() => setCategoryFilter(category)}
+                w="100%"
+                px="xs"
+                py={6}
               >
                 {category}
-              </button>
+              </UnstyledButton>
             </li>
           ))}
         </Dropdown>
 
-        <span>{categoryFilter}</span>
+        <Text>{categoryFilter}</Text>
       </div>
 
       <CheckBoxes title={t(($) => $.brand)}>
@@ -108,24 +112,16 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
       </CheckBoxes>
 
       <CheckBoxes title={t(($) => $.isInStock)}>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="isInStock"
-            checked={isInStock}
-            onChange={handleIsInStock}
-          />
-
-          <label className="form-check-label" htmlFor="isInStock">
-            {t(($) => $.isInStock)}
-          </label>
-        </div>
+        <Checkbox
+          id="isInStock"
+          label={t(($) => $.isInStock)}
+          checked={isInStock}
+          onChange={handleIsInStock}
+        />
       </CheckBoxes>
 
       <Range
-        maxPriceRange={maxPriceRange}
+        maxPriceRange={String(maxPriceRange)}
         minPriceRange={minPriceRange}
         title={t(($) => $.price)}
         handleMinChange={(e: ChangeEvent<HTMLInputElement>) => setMinPrice(e.target.value)}
@@ -134,7 +130,7 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
         minValue={minPrice}
         maxValue={maxPrice}
       />
-    </div>
+    </Stack>
   );
 };
 

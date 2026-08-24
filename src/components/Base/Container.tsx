@@ -1,5 +1,6 @@
 import type React from "react";
 import type { FC } from "react";
+import { Container as MantineContainer } from "@mantine/core";
 
 interface ContainerProps {
   children: React.ReactElement | React.ReactElement[];
@@ -7,7 +8,9 @@ interface ContainerProps {
 }
 
 const Container: FC<ContainerProps> = ({ children, styles }) => (
-  <div className={`container ${styles || ""}`}>{children}</div>
+  <MantineContainer size="xl" className={styles || ""}>
+    {children}
+  </MantineContainer>
 );
 
 export default Container;

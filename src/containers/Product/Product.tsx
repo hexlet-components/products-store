@@ -1,10 +1,10 @@
 import type { FC } from "react";
-import { useDispatch } from "react-redux";
+import { Grid, Text, Title } from "@mantine/core";
 import Container from "../../components/Base/Container";
 import PageContent from "../../components/Base/PageContent";
 import ProductInfo from "../../components/Product/ProductInfo";
 import ProductPhotos from "../../components/Product/ProductPhotos";
-import { addToCart, removeFromCart } from "../../store/reducers/cart";
+import { useAddToCart, useRemoveFromCart } from "../../store/cart";
 import type { ProductT } from "../../types/product";
 
 interface ProductProps {
@@ -12,7 +12,8 @@ interface ProductProps {
 }
 
 const Product: FC<ProductProps> = ({ productItem }) => {
-  const dispatch = useDispatch();
+  const addToCart = useAddToCart();
+  const removeFromCart = useRemoveFromCart();
 
   const {
     id,
@@ -27,14 +28,14 @@ const Product: FC<ProductProps> = ({ productItem }) => {
     stock,
   } = productItem;
 
-  const addProductToCart = () => dispatch(addToCart(productItem));
-  const removeProductFromCart = () => dispatch(removeFromCart(id));
+  const addProductToCart = () => addToCart(productItem);
+  const removeProductFromCart = () => removeFromCart(id);
 
   return (
     <PageContent>
-      <section className="mb-5 pt-5">
+      <section style={{ padding: "2rem 0" }}>
         <Container>
-          <div className="row">
+          <Grid gutter="xl">
             <ProductPhotos images={images} thumbnail={thumbnail} />
 
             <ProductInfo
@@ -47,17 +48,17 @@ const Product: FC<ProductProps> = ({ productItem }) => {
               stock={stock}
               removeFromCart={removeProductFromCart}
             />
-          </div>
+          </Grid>
         </Container>
       </section>
 
-      <section className="mb-2">
+      <section style={{ paddingBottom: "2rem" }}>
         <Container>
-          <div className="row">
-            <h4 className="col-md-12">Description</h4>
+          <Title order={2} size="h4" mb="sm">
+            Description
+          </Title>
 
-            <p className="my-8">{description}</p>
-          </div>
+          <Text>{description}</Text>
         </Container>
       </section>
     </PageContent>

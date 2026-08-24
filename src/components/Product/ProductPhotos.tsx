@@ -1,31 +1,25 @@
 import { type FC, Fragment } from "react";
+import { Grid, Group, Image } from "@mantine/core";
 
 interface ProductPhotosProps {
   images: string[];
   thumbnail: string;
 }
 
-const imageStyle = { width: "100%" };
-const imageClass = "rounded-3 img-fluid";
-
 const ProductPhotos: FC<ProductPhotosProps> = ({ images, thumbnail }) => (
-  <div className="col-md-6" style={{ maxWidth: "40vw" }}>
-    <div className="mb-3">
-      <img src={thumbnail} alt="card 1" className={imageClass} style={imageStyle} />
-    </div>
+  <Grid.Col span={{ base: 12, md: 6 }}>
+    <Image src={thumbnail} alt="card 1" radius="md" mb="md" mah={400} fit="contain" />
 
-    <div className="d-flex">
+    <Group gap="xs">
       {images.map((image, ind) =>
         ind < images.length - 1 ? (
-          <div key={image} className="mr-1">
-            <img src={image} alt={`card ${ind}`} style={imageStyle} className={imageClass} />
-          </div>
+          <Image key={image} src={image} alt={`card ${ind}`} radius="md" w={80} />
         ) : (
           <Fragment key={ind} />
         ),
       )}
-    </div>
-  </div>
+    </Group>
+  </Grid.Col>
 );
 
 export default ProductPhotos;

@@ -1,19 +1,13 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import FallBack from "../../components/Fallback/FallBack";
 import Store from "../../containers/Store/Store";
-import { startFetchStore } from "../../store/reducers/store";
-import { selectStoreIsLoading } from "../../store/selectors";
+import { useProducts } from "../../services/queries";
+import { useSkip } from "../../store/pagination";
 
 const StorePage = () => {
-  const isLoading = useSelector(selectStoreIsLoading);
-  const dispatch = useDispatch();
+  const skip = useSkip();
+  const { data, isPending } = useProducts(skip);
 
-  useEffect(() => {
-    dispatch(startFetchStore());
-  }, [dispatch]);
-
-  return isLoading ? <FallBack /> : <Store />;
+  return isPending || !data ? <FallBack /> : <Store store={data} />;
 };
 
 export default StorePage;

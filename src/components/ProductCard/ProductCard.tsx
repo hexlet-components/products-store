@@ -1,9 +1,9 @@
 import type React from "react";
 import type { FC } from "react";
+import { Button, Card, Group, Image, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { getPriceWithDiscount } from "../../utilities";
-import "./styles.css";
 
 interface ProductCardProps {
   id: number;
@@ -42,39 +42,34 @@ const ProductCard: FC<ProductCardProps> = ({
       : description;
 
   return (
-    <Link to={`/products/${id}`} className="text-decoration-none">
-      <div className="card text-muted">
-        <img className="card-img-top" src={thumbnail} alt={title} width="180" height="180" />
+    <Link to={`/products/${id}`} style={{ textDecoration: "none", color: "inherit" }}>
+      <Card withBorder radius="md" h="100%" mah={415}>
+        <Card.Section>
+          <Image src={thumbnail} alt={title} h={180} fit="contain" />
+        </Card.Section>
 
-        <div
-          className="card-body"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
-          <h6 className="card-title">{title}</h6>
+        <Text fw={600} mt="md">
+          {title}
+        </Text>
 
-          <p className="card-text lh-1">{cuttedDescription}</p>
+        <Text size="sm" c="dimmed" lineClamp={4}>
+          {cuttedDescription}
+        </Text>
 
-          <div className="d-flex justify-content-between align-items-center mt-3">
-            <span className="text-decoration-line-through">{price}$</span>
+        <Group justify="space-between" align="center" mt="md">
+          <Text td="line-through">{price}$</Text>
 
-            <span className="text-danger">
-              {getPriceWithDiscount(price, discountPercentage).toFixed(2)}$
-            </span>
+          <Text c="red">{getPriceWithDiscount(price, discountPercentage).toFixed(2)}$</Text>
 
-            <span>{stock}</span>
+          <Text>{stock}</Text>
 
-            {stock ? (
-              <button type="button" className="btn btn-primary" onClick={handleClick}>
-                {t(($) => $.add)}
-              </button>
-            ) : null}
-          </div>
-        </div>
-      </div>
+          {stock ? (
+            <Button type="button" onClick={handleClick}>
+              {t(($) => $.add)}
+            </Button>
+          ) : null}
+        </Group>
+      </Card>
     </Link>
   );
 };

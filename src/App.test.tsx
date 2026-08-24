@@ -1,9 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 import "./locales/index";
-import { createStore } from "./store";
 
 const products = [
   {
@@ -52,9 +51,9 @@ afterEach(() => {
 test("renders the app with fetched products", async () => {
   render(
     <MemoryRouter>
-      <Provider store={createStore()}>
+      <QueryClientProvider client={new QueryClient()}>
         <App />
-      </Provider>
+      </QueryClientProvider>
     </MemoryRouter>,
   );
 
