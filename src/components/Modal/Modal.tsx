@@ -7,7 +7,7 @@ interface ModalProps {
   title: string;
   isOpen: boolean;
   closeModal: () => void;
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 
 // Окно собрано руками, а не на Modal из Mantine: тот закрывается по Escape и по

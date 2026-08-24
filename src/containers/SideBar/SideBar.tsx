@@ -34,7 +34,8 @@ const SideBar: FC<SideBarProps> = ({ products, changeFilteredProducts }) => {
 
   useEffect(() => {
     const minValue = Number(minPrice) || 0;
-    const maxValue = maxPrice || maxPriceRange;
+    const maxValue = Number(maxPrice) || maxPriceRange;
+
     changeFilteredProducts(
       filterProducts(
         products,

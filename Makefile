@@ -16,6 +16,9 @@ preview:
 test:
 	pnpm run test
 
+typecheck:
+	pnpm --silent run typecheck
+
 # Ключи переводов вынимаются из кода, объявления ресурсов генерируются из en:
 # руками ни src/locales/<lng>/translation.json, ни src/@types не правятся.
 i18n-extract:

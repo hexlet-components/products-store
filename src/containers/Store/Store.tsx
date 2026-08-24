@@ -43,7 +43,7 @@ const Store: FC<StoreProps> = ({ store }) => {
   return (
     <PageContent>
       <Container>
-        <Grid pt="xl" gutter="xl">
+        <Grid pt="xl" gap="xl">
           <Grid.Col span={{ base: 12, md: 3 }} order={{ base: 2, md: 1 }}>
             <SideBar products={memoProducts} changeFilteredProducts={changeFilteredProducts} />
           </Grid.Col>
@@ -56,7 +56,7 @@ const Store: FC<StoreProps> = ({ store }) => {
               pagesCount={pagesCount}
             />
 
-            <Grid mt="md" mb="md" gutter="md">
+            <Grid mt="md" mb="md" gap="md">
               {filteredProducts.length ? (
                 filteredProducts.map((p: ProductT) => (
                   <Grid.Col span={{ base: 12, md: 6, xl: 4 }} key={p.id}>

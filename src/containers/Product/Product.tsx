@@ -35,7 +35,7 @@ const Product: FC<ProductProps> = ({ productItem }) => {
     <PageContent>
       <section style={{ padding: "2rem 0" }}>
         <Container>
-          <Grid gutter="xl">
+          <Grid gap="xl">
             <ProductPhotos images={images} thumbnail={thumbnail} />
 
             <ProductInfo

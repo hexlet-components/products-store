@@ -23,6 +23,10 @@ jobs:
           cache: pnpm
       - run: make install
       - run: make lint
+      # Типы проверяются в CI: под прежним конфигом от Create React App tsc
+      # падал на депрекейтах ещё до проверки кода, поэтому ошибки типов копились
+      # незамеченными.
+      - run: make typecheck
       - run: make test
       - run: make build
 
