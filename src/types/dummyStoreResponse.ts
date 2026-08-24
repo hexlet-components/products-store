@@ -1,7 +1,7 @@
-import type { ProductT } from "./product";
+import type { ProductsT } from "./product";
 
 export type DummyStoreResponseT = {
-  products: ProductT;
+  products: ProductsT;
   limit: number;
   skip: number;
   total: number;
