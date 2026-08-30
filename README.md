@@ -38,6 +38,7 @@ Start the development server:
 ```bash
 make start
 ```
+
 Open your browser and navigate to `http://localhost:8080`.
 
 `make start` runs both the front-end (Vite on `:8080`) and the internal API
