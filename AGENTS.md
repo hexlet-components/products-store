@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `products-store` (`hexlet_qa_market`) — учебный интернет-магазин от Hexlet, предназначенный для тренировки QA-инженеров. В приложение **намеренно заложены баги**, которые студенты должны находить. Прежде чем «чинить» странное поведение, проверь, не является ли оно преднамеренным (см. раздел «Намеренные баги»).
 
-Детали по слоям лежат рядом с кодом: `server/CLAUDE.md` (бэкенд) и `src/CLAUDE.md` (фронтенд) — они подгружаются при работе с соответствующими каталогами.
+Детали по слоям лежат рядом с кодом: `server/AGENTS.md` (бэкенд) и `src/AGENTS.md` (фронтенд) — они подгружаются при работе с соответствующими каталогами.
 
 ## Команды
 
