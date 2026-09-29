@@ -14,13 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      # pnpm ставится до setup-node: тот с cache: pnpm ищет уже существующий
-      # бинарь, чтобы вычислить путь к store.
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version: '26.x'
-          cache: pnpm
+
+      - uses: jdx/mise-action@v5
       - run: make install
       - run: make lint
       # Типы проверяются в CI: под прежним конфигом от Create React App tsc
