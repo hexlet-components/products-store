@@ -36,7 +36,7 @@ const ProductCard: FC<ProductCardProps> = ({
     addToCart();
   };
 
-  const cuttedDescription =
+  const shortDescription =
     description.length >= descriptionLength - 1
       ? `${description.substring(0, descriptionLength - dots.length)}${dots}`
       : description;
@@ -53,7 +53,7 @@ const ProductCard: FC<ProductCardProps> = ({
         </Text>
 
         <Text size="sm" c="dimmed" lineClamp={4}>
-          {cuttedDescription}
+          {shortDescription}
         </Text>
 
         <Group justify="space-between" align="center" mt="md">

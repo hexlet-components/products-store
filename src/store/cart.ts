@@ -58,5 +58,3 @@ export const useCart = () => useCartStore((state) => state.cart);
 export const useAddToCart = () => useCartStore((state) => state.addToCart);
 export const useRemoveFromCart = () => useCartStore((state) => state.removeFromCart);
 export const useClearCart = () => useCartStore((state) => state.clearCart);
-
-export default useCartStore;

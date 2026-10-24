@@ -17,5 +17,3 @@ const usePaginationStore = create<PaginationState>((set) => ({
 export const useSkip = () => usePaginationStore((state) => state.skip);
 export const useNextPage = () => usePaginationStore((state) => state.nextPage);
 export const usePrevPage = () => usePaginationStore((state) => state.prevPage);
-
-export default usePaginationStore;
