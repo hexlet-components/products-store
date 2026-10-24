@@ -1,7 +1,20 @@
 {
   "$schema": "https://unpkg.com/knip@latest/schema.json",
-  "entry": ["server/app.js", "server/plugins/*.js", "server/routes/**/*.js", "server/scripts/*.js", "server/test/*.js"],
-  "ignore": ["commitlint.config.js", "i18next.config.ts"],
-  "ignoreDependencies": ["i18next-cli", "npm-check-updates"],
+  "entry": [
+    "server/app.js",
+    "server/plugins/*.js",
+    "server/routes/**/*.js",
+    "server/scripts/*.js",
+    "server/test/*.js"
+  ],
+  "ignore": [
+    "commitlint.config.js",
+    "i18next.config.ts"
+  ],
+  "ignoreDependencies": [
+    "@testing-library/user-event",
+    "i18next-cli",
+    "npm-check-updates"
+  ],
   "ignoreExportsUsedInFile": true
 }
