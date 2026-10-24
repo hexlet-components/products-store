@@ -1,0 +1,3 @@
+[files]
+# Данные магазина (категории вроде womens-watches) это значения, а не текст.
+extend-exclude = ["server/data/products.json", "server/data/products.js", "public"]

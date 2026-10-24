@@ -1,0 +1,82 @@
+// Хуки ставит `hk install`: на git 2.54+ это записи hook.* в .git/config,
+// общий core.hooksPath дерева кита они не трогают.
+amends "package://github.com/jdx/hk/releases/download/v2.8.1/hk@2.8.1#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.8.1/hk@2.8.1#/Builtins.pkl"
+
+local sources = List("**/*.ts", "**/*.tsx", "**/*.js")
+
+// Быстрые проверки идут на каждый коммит. Сеть нужна только lychee, поэтому
+// ссылки проверяются в check и перед пушем.
+local fast = new Mapping<String, Step> {
+  ["format"] {
+    glob = sources
+    check = "pnpm exec oxfmt --check --no-error-on-unmatched-pattern {{files}}"
+    fix = "pnpm exec oxfmt --no-error-on-unmatched-pattern {{files}}"
+  }
+  ["lint"] {
+    glob = sources
+    check = "pnpm exec oxlint {{files}}"
+  }
+  ["stylelint"] {
+    glob = List("**/*.css")
+    check = "pnpm exec stylelint {{files}}"
+    fix = "pnpm exec stylelint --fix {{files}}"
+  }
+  ["hadolint"] {
+    glob = List("Dockerfile*")
+    check = "hadolint {{files}}"
+  }
+  ["agnix"] {
+    glob = List("**/AGENTS.md", "**/SKILL.md")
+    check = "agnix --strict ."
+  }
+  ["rumdl"] = Builtins.rumdl
+  ["typos"] = Builtins.typos
+  ["jactionlint"] = Builtins.jactionlint
+}
+
+// Проверки всего дерева. На каждый коммит они долгие, поэтому идут перед
+// пушем и в CI.
+
+local all = (fast) {
+  ["typecheck"] {
+    glob = List("**/*.ts", "**/*.tsx", "tsconfig.json")
+    check = "pnpm --silent run typecheck"
+  }
+  ["knip"] {
+    glob = List("**/*.ts", "**/*.tsx", "**/*.js", "package.json", "knip.json")
+    check = "pnpm exec knip"
+  }
+  ["lychee"] {
+    glob = List("**/*.md")
+    check = "lychee --config lychee.toml --no-progress {{files}}"
+  }
+}
+
+hooks {
+  // stash выключен: на время хука он откатывает непроиндексированный
+  // package.json, pnpm exec видит расхождение с локом и доустанавливает
+  // зависимости прямо посреди коммита.
+  ["pre-commit"] {
+    fix = true
+    stash = "none"
+    steps = fast
+  }
+  // История читается release-please, поэтому заголовок коммита проверяется
+  // до записи. В CI тот же commitlint гоняется по диапазону пуша.
+  ["commit-msg"] {
+    steps {
+      ["commitlint"] {
+        check = "commitlint --edit {{commit_msg_file}}"
+      }
+    }
+  }
+  ["pre-push"] {
+    steps = all
+  }
+  ["check"] { steps = all }
+  ["fix"] {
+    fix = true
+    steps = all
+  }
+}
