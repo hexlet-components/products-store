@@ -5,8 +5,19 @@ on:
   pull_request:
     branches: [ v2_bug_fixes ]
 
+permissions: {}
+
+# Образ публикуется из push: параллельные прогоны ждут друг друга, а не
+# отменяются, чтобы не оборвать публикацию.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
 jobs:
   call:
+    permissions:
+      contents: read
+      packages: write
     uses: ./.github/workflows/build-and-deploy.yml
     with:
       branch: v2_bug_fixes
